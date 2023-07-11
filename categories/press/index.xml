@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Press on Lluc Puig Codina</title>
+    <link>https://llucpuigcodina.github.io/categories/press/</link>
+    <description>Recent content in Press on Lluc Puig Codina</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/press/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>La universitat gratuïta es ajudar els rics</title>
+      <link>https://llucpuigcodina.github.io/posts/universitat_gratuita_2/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/universitat_gratuita_2/</guid>
+      <description>body {text-align: justify}Recentment s’ha publicat un article escrit per dos companys i jo mateix al diari Ara. El podeu llegir aquí.
+També va aparèixer a la versió impresa del 11 de Gener de 2017.</description>
+    </item>
+    
+  </channel>
+</rss>

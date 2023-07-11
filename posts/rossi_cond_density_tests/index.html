@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Lluc Puig Codina">
+    <meta name="description" content="https://llucpuigcodina.github.io">
+    <meta name="keywords" content="blog, economics,personal">
+    
+    <meta property="og:site_name" content="Lluc Puig Codina">
+    <meta property="og:title" content="Lluc Puig Codina">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://llucpuigcodina.github.io/posts/rossi_cond_density_tests/">
+    <meta property="og:image" content="https://llucpuigcodina.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://llucpuigcodina.github.io/posts/rossi_cond_density_tests/">
+    <meta name="twitter:image" content="https://llucpuigcodina.github.io">
+
+    <base href="https://llucpuigcodina.github.io">
+    <title>
+  Tests for correct specification of conditional densities - Lluc Puig Codina
+</title>
+
+    <link rel="canonical" href="https://llucpuigcodina.github.io/posts/rossi_cond_density_tests/">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://llucpuigcodina.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://llucpuigcodina.github.io/images/logo.png" sizes="32x32"/>
+
+    
+
+    <meta name="generator" content="Hugo 0.89.2" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Lluc Puig Codina</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/research/">Research</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/teaching/">Teaching</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/posts/">Blog</a>
+            </li>
+          
+        
+      </ul>
+    </label>
+  </section>
+  
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Tests for correct specification of conditional densities</h1>
+      <h2 class="date">June 20, 2020</h2>
+
+      
+    </header>
+
+    
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<p>I have implemented the statistical tests of Rossi and Sekhposyan (2019) in R. <a href="https://github.com/LlucPuigCodina/tests-of-correct-specification-of-conditional-densities">You can find the codes in the following Github repo</a>. Two tests, a Kolmogorov-Smirnov test and an Cràmer-von Mises test, are implemented to assess the correct specification of rolling window conditional distribution out-of-sample forecasts, one and multiple steps ahead.</p>
+<p>Thew hole idea of the test is the following: let <span class="math inline">\(X\)</span> be a random variable with cdf <span class="math inline">\(F_X\)</span> (with well defined <span class="math inline">\(F_X^{-1}\)</span>). If we define a new variable <span class="math inline">\(Y = F_X(X)\)</span>, then <span class="math inline">\(F_Y(y) = \mathbf{P}(Y \leq y) = \mathbf{P}(F_X(X) \leq y) = \mathbf{P}(X \leq F_X^{-1}(y)) = F_X(F_X^{-1}(y)) = y\)</span>. The random variable that has <span class="math inline">\(y\)</span> as CDF is a uniform random variable. This is known as the <a href="https://web.archive.org/save/https://en.wikipedia.org/wiki/Probability_integral_transform">probability inverse transform</a>.</p>
+<p>When forecasting the distribution of the random variable <span class="math inline">\(X\)</span> if we picked as our forecast it’s true CDF (good job!), when we evaluate the realizations of the random variable using our CDF we should get a uniform random variable. Thus we can test if it indeed follows a uniform distribution. There are three variants of the test one ca use. In the case of one-setp-ahead forecasts one can use the asymptotic critical values reported in Table 1 of Rossi and Sekhposyan (2019). Alternatively if one wants to test a particular set of quantiles that are not reported in Table 1 one can use their Monte-Carlo method, which I implemented in R to obtain the critical values. In the case of multiple-step-ahead forecasts one must use procedure involving block boostrap to correct for the fact that errors might be autocorrelated.</p>
+<div id="aplications-to-financial-risk-management" class="section level3">
+<h3>Aplications to Financial Risk Management</h3>
+<p>Aside from a general application to forecasting it also has a particular application to financial risk management. Expected shortfall is the risk measure at the forefront of Basel III. The accuracy of expected shortfall depends on the accuracy of the predicted distributions, their left tail in fact. Therefore we might want to backtest that the left tail of the predictive distributions is well specified. Unlike Diebold (1998) the test is joint, not pointwise, and is robust to serial correlation of the probability integral transforms (multi-step-ahead forecasts).</p>
+</div>
+<div id="test" class="section level3">
+<h3>Test</h3>
+<div id="input" class="section level4">
+<h4>Input</h4>
+<p>The test is implemented in the function RStest which has several arguments:</p>
+<ul>
+<li><p>pits: A vector containing the probability integral transforms (predicted CDF evaluated at it’s realization), thus it’s elements are numeric and in [0, 1]. Elements are ordered from <em>t = R</em> to <em>T</em>, the out-of-sample set.</p></li>
+<li><p>alpha: significance level, the probability of rejecting the null hypothesis when it is true.</p></li>
+<li><p>nSim: number of simulations in the calculation of the critical values. Must be a positive integer.</p></li>
+<li><p>rmin: lower quantile to be tested. Must be in [0,1] and &gt; than rmax.</p></li>
+<li><p>rmax: upper quantile to be tested. Must be in [0,1] and &lt; than rmin.</p></li>
+<li><p>step: must be a string, either “one” or “multiple”. The first option implements the second boostrap procedure described in Theorem 2 of Rossi and Sekhposyan (2019) to compute critical values, while the second option implements the procedure described in Theorem 4 of Rossi and Sekhposyan (2019), which is robust to autocorrelation of the probability integral transforms (recommended for multi-step-ahead forecasts).</p></li>
+<li><p>l: Bootstrap block length. Default is set to [<span class="math inline">\(P^{1/3}\)</span>], where [⋅] denotes the floor operator, as in all Pannels, except G, of Table 3 in Rossi and Sekhposyan (2019). Boostrap block length must be a positive integer. Specifying the boostrap block length is unnecessary for one-step-ahead forecasts. Although there is no guidance on how to choose l, results seem to be robust to alternative lengths.</p></li>
+</ul>
+<div id="output" class="section level5">
+<h5>Output</h5>
+<p>The test outputs a list with several objects:</p>
+<ul>
+<li><p>KS_P: Kolmogorov-Smirnov statistic.</p></li>
+<li><p>KS_alpha: Kolmogorov-Smirnov critical value.</p></li>
+<li><p>CvM_P: Cràmer-von Mises statistic.</p></li>
+<li><p>CvM_alpha: Cràmer-von Mises critical value.</p></li>
+</ul>
+<p>The null hypothesis of the correct specification of the conditional distribution can be rejected if the statistic is larger than the critical value.</p>
+</div>
+</div>
+</div>
+<div id="example-ar1" class="section level3">
+<h3>Example: AR(1)</h3>
+<p><span class="math display">\[
+DGP: y_{t+1} = 0.8 y_{t} + e_{t+1}; \ e_{t+1} \sim \mathcal{N}(0,2)
+\]</span>
+What we are going to do here is estimate a model, regression, from data to <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t_N\)</span>, generate a forecast of the distribution at <span class="math inline">\(t_{N+1}\)</span> and evaluate the CDF at the realized value <span class="math inline">\(y_{t+1}\)</span>, obtaining values the probability integral transform. Those will be feed into the test in which the null hypothesis is that the whole conditional distribution is well specified.</p>
+<pre class="r"><code>#Simulate the model, 500 observations take the last 221. 70 to estimate initial model, 150 forecasts.
+set.seed(777)
+y &lt;- c(0)
+
+for (i in 2:500){
+  e &lt;- rnorm(1, mean = 0, sd = sqrt(2))
+  y &lt;- c(y, 0.8*y[i-1] + e)
+}
+
+y_1 &lt;- y[279:499]
+y &lt;- y[280:500]
+
+#Use a rolling window of 50 estimate the mode, evaluate CDF (t+1, a t forecast) at realized value (t+1)
+
+pits &lt;- c()
+
+for (i in 1:150){
+  y_reg &lt;- y[(1+i):(70+i)]
+  y_1_reg &lt;- y_1[(1+i):(70+i)]
+  reg &lt;- lm(y_reg ~ y_1_reg)
+  y_forecast &lt;- y[71+i]
+  cond_mean &lt;- c(reg$coefficients[1] + reg$coefficients[2]*y[70+i])
+  cond_sd &lt;- sd(reg$residuals)
+  pits &lt;- c(pits, pnorm(y_forecast, mean = cond_mean, sd = cond_sd))
+}
+
+P &lt;- length(pits)
+plot(ecdf(pits), main = &quot;&quot;)
+abline(a = 0, b = 1, col = &quot;blue&quot;)
+abline(a = 1.34/sqrt(P) , b = 1, col = &quot;red&quot;)
+abline(a = -1.34/sqrt(P), b = 1, col = &quot;red&quot;)</code></pre>
+<p><img src="/posts/rossi_cond_density_tests_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>results &lt;- RStest(pits, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = &quot;one&quot;)
+print(results)</code></pre>
+<pre><code>## $KS_P
+## [1] 0.7144345
+## 
+## $KS_alpha
+##      95% 
+## 1.379879 
+## 
+## $CvM_P
+## [1] 0.1201941
+## 
+## $CvM_alpha
+##       95% 
+## 0.4986979</code></pre>
+<p>As an alternative we can also specify a wrong forecast. In this case I picked that we are going to incorrectly assume that the process is white noise and set the mean and the variance to the unconditional mean and variance of the AR(1). We’ll see that the correct specification of the whole distribution is rejected.</p>
+<pre class="r"><code>pits &lt;- c()
+
+for (i in 1:150){
+  y_forecast &lt;- y[71+i]
+  cond_mean &lt;- 0/(1-0.8)
+  cond_sd &lt;- sqrt(2/(1-0.8^2))
+  pits &lt;- c(pits, pnorm(y_forecast, mean = cond_mean, sd = cond_sd))
+}
+
+P &lt;- length(pits)
+plot(ecdf(pits), main = &quot;&quot;)
+abline(a = 0, b = 1, col = &quot;blue&quot;)
+abline(a = 1.34/sqrt(P) , b = 1, col = &quot;red&quot;)
+abline(a = -1.34/sqrt(P), b = 1, col = &quot;red&quot;)</code></pre>
+<p><img src="/posts/rossi_cond_density_tests_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>results &lt;- RStest(pits, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = &quot;one&quot;)
+print(results)</code></pre>
+<pre><code>## $KS_P
+## [1] 1.579921
+## 
+## $KS_alpha
+##      95% 
+## 1.347423 
+## 
+## $CvM_P
+## [1] 0.9243886
+## 
+## $CvM_alpha
+##       95% 
+## 0.4512982</code></pre>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Rossi, Barbara, and Tatevik Sekhposyan. “<a href="https://doi.org/10.1016/j.jeconom.2018.07.008">Alternative tests for correct specification of conditional predictive densities</a>.” Journal of Econometrics 208.2 (2019): 638-657.</p>
+</div>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    © 2020 · Lluc Puig Codina
+
+  </section>
+</footer>
+
+      
+    </main>
+
+    
+
+  <script src="https://llucpuigcodina.github.io/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text(" ");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

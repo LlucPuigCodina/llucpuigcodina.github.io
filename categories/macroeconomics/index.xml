@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Macroeconomics on Lluc Puig Codina</title>
+    <link>https://llucpuigcodina.github.io/categories/macroeconomics/</link>
+    <description>Recent content in Macroeconomics on Lluc Puig Codina</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/macroeconomics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Growth-at-Risk IMF Tool</title>
+      <link>https://llucpuigcodina.github.io/posts/growth_at_risk/</link>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/growth_at_risk/</guid>
+      <description>body {text-align: justify}The International Monetary Fund (IMF) has been using Growth-at-Risk, a macro-econometric tool developed by them to assess risks to economic growth, in several article IV country reports (Albania, Portugal and Singapore 2018), Chapter 2 of the IMF Global Financial Conditions Report since October 2017 and so on. The tool is built taking the methodology developed in the AER April 2019 paper Vulnerable Growth. I have several disagreements about the statistical procedures used and the interpretation of the results in the AER paper, which you can read here in my working papers.</description>
+    </item>
+    
+    <item>
+      <title>Puzzles and the Behavioural New Keynesian Model</title>
+      <link>https://llucpuigcodina.github.io/posts/determinacy_gabaix_new_keynesian_model/</link>
+      <pubDate>Thu, 05 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/determinacy_gabaix_new_keynesian_model/</guid>
+      <description>Herein I conduct similar policy experiments to those of Carlstrom et al. (2012) with a Behavioural New Keynesian (BNK) model, instead of the standard New Keynesian model (only) or a sticky information model. The BNK model does a good job of solving previous issues with the standard model (as already noted by Gabaix).
+All of this work is already, explicitly or implicitly, in the cited articles, so I wouldn’t claim to show anything new.</description>
+    </item>
+    
+    <item>
+      <title>Determinacy in a New Keynesian Model under a Money Growth Rule</title>
+      <link>https://llucpuigcodina.github.io/posts/determinacy_new_keynesian_model/</link>
+      <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/determinacy_new_keynesian_model/</guid>
+      <description>body {text-align: justify}This note derives the analytical conditions for determinacy in a canonical New Keynesian model under an exogenous path for the growth rate of the money supply. Under cash-when-I’m-done timing the model is always determinate while indeterminacy can arise with cash-in-advance timing.
+FULL TEXT: See in “Research”
+Update: Now you can also find my presentation of the paper at the IV Navarra-Basque Country Macroeconomics Workshop.</description>
+    </item>
+    
+  </channel>
+</rss>
