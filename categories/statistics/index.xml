@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on Lluc Puig Codina</title>
+    <link>https://llucpuigcodina.github.io/categories/statistics/</link>
+    <description>Recent content in Statistics on Lluc Puig Codina</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 13 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>X &gt; MAX for independent but not identically distributed betas</title>
+      <link>https://llucpuigcodina.github.io/posts/abtest_general_formula/</link>
+      <pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/abtest_general_formula/</guid>
+      <description>In this post I provide a general formula for the probability that the realization of a beta distribution is larger than the realizations from a sequence of beta random variables, all of them being independent.
+Assume \(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\). We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating \(\mathbb{P}(p_0 &amp;gt; max\{p_1,\dots,p_J\}\). A recursive formula in the style of the ones provided by Evan Miller is:</description>
+    </item>
+    
+  </channel>
+</rss>

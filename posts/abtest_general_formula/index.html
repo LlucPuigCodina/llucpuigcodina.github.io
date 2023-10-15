@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Lluc Puig Codina">
+    <meta name="description" content="https://llucpuigcodina.github.io">
+    <meta name="keywords" content="blog, economics,personal">
+    
+    <meta property="og:site_name" content="Lluc Puig Codina">
+    <meta property="og:title" content="Lluc Puig Codina">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://llucpuigcodina.github.io/posts/abtest_general_formula/">
+    <meta property="og:image" content="https://llucpuigcodina.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://llucpuigcodina.github.io/posts/abtest_general_formula/">
+    <meta name="twitter:image" content="https://llucpuigcodina.github.io">
+
+    <base href="https://llucpuigcodina.github.io">
+    <title>
+  X &gt; MAX for independent but not identically distributed betas - Lluc Puig Codina
+</title>
+
+    <link rel="canonical" href="https://llucpuigcodina.github.io/posts/abtest_general_formula/">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://llucpuigcodina.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://llucpuigcodina.github.io/images/logo.png" sizes="32x32"/>
+
+    
+
+    <meta name="generator" content="Hugo 0.89.2" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Lluc Puig Codina</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/research/">Research</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/teaching/">Teaching</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/posts/">Blog</a>
+            </li>
+          
+        
+      </ul>
+    </label>
+  </section>
+  
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">X &gt; MAX for independent but not identically distributed betas</h1>
+      <h2 class="date">October 13, 2023</h2>
+
+      
+    </header>
+
+    
+
+
+<p>In this post I provide a general formula for the probability that the realization of a beta distribution is larger than the realizations from a sequence of beta random variables, all of them being independent.</p>
+<p>Assume <span class="math inline">\(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\)</span>. We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating <span class="math inline">\(\mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\}\)</span>. A recursive formula in the style of the ones provided by <a href="https://www.evanmiller.org/bayesian-ab-testing.html#binary_abc">Evan Miller</a> is:</p>
+<span class="math display">\[\begin{aligned}
+\mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\}) = \mathbb{P}(p_0(\alpha_0, \beta_0) &gt; max\{p_1,\dots, p_{J-1}\}) - \left(\prod_{k=0}^{\beta_J-1}\frac{\beta_0+k}{\alpha_0 + \beta_0 + k} \right) \times \\ \times \sum_{h=0}^{\alpha_J-1}\frac{\left(\prod_{l=0}^h\frac{\alpha_0+l}{\alpha_0+\beta_0+l}\right)}{(\beta_J +h)B(1+h,\beta_J)}\mathbb{P}(p_0(\alpha_0+h, \beta_0+\beta_J) &gt; max\{p_1,\dots, p_{J-1}\})
+
+\end{aligned}\]</span>
+<p>where</p>
+<span class="math display">\[\begin{aligned}
+\mathbb{P}(p_g &gt; p_m) = \sum_{i = 0}^{\alpha_g-1}\frac{B(\alpha_m + i, \beta_g + \beta_m)}{(\beta_g+i)B(1+i,\beta_g)B(\alpha_m, \beta_m)}
+
+\end{aligned}\]</span>
+<p><span class="math inline">\(B\)</span> denotes the beta function. Due to the reduction in dimension on the <span class="math inline">\(max\)</span> operator, it is a guarantee that the first equation will end up evaluating a bunch of the bottom equations. Each step reduces the dimension in 1 but requires <span class="math inline">\(\alpha_j\)</span> evaluations of the formula again so it’s computable in <span class="math inline">\(\mathcal{O}\left(\prod_{j=1}^J\alpha_j\right)\)</span> time.</p>
+<p>This formula adds to what was already provided by Miller. Since calculation is quite burdensome I provide here a general R function based on the recursive nature of the formula. I do not know whether someone else has derived this formula elsewhere, I have not done a thorough search. At the end of the post I provide some derivation steps.</p>
+<p>This object is typically of interest in the Beta-Binomial model and the Bayesian analysis of binary outcome Randomized Control Trials (A/B tests), where the prior on the probability of success is given by (conjugate) independent beta distributions. To calculate <span class="math inline">\(\mathbb{P}(p_i &gt; max\{p_0, p_1, \dots, p_{i-1}, p_{i+1}, \dots p_J\})\)</span> one only needs to reorder the <span class="math inline">\(\alpha_j\)</span>’s and <span class="math inline">\(\beta_j\)</span>’s appropriately. Since some of the sums could be expressed in terms of the <span class="math inline">\(\beta_j\)</span>’s, instead of the <span class="math inline">\(\alpha_j\)</span>’s it would be interesting to also re-dervie such formula for cases in which it is more efficient. From simple rules of probability where <span class="math inline">\(P(A_1 \cap A_2) = P(A_1) - P(A_1 - A_2)\)</span> we can obtain that the negative term corresponds to the probability of the following event: <span class="math inline">\(p_J &gt; p_0 &gt; max\{p_1,\dots,p_{J-1}\}\)</span>; that <span class="math inline">\(p_J\)</span> is the largest and <span class="math inline">\(p_0\)</span> the second largest. This object could be also of interest, specially due to the possibility of reordering to calculate any event of the type <span class="math inline">\(p_k &gt; p_g &gt; max\{p_1,\dots,p_{k-1},p_{k+1},\dots,p_{g-1},p_{g+1},\dots,p_J\}\)</span> and possible other sequences inequalities by going down the recursive rabbit hole.</p>
+<pre class="r"><code>ProbMBeatsG &lt;- function(ag, bg, am, bm){
+  Bf &lt;- sapply(0:(ag - 1), function(i) {exp(lbeta(am + i, bg + bm) - 
+                                            log(bg + i) - lbeta(1 + i, bg) - lbeta(am, bm))})   
+  return(sum(Bf))  
+}
+
+InnerTerm &lt;- function(h, alpha0, beta0, alpha_, beta_, J){
+  l &lt;- 0:h 
+  return( Prob0beatsAll(alpha0 + h, beta0 + beta_[J], head(alpha_, -1), head(beta_, -1))*prod( (alpha0 + l)/(alpha0 + beta0 + l) )/( (beta_[J] + h)*beta(1 + h, beta_[J]) ) )
+}
+
+Prob0beatsAll &lt;- function(alpha0, beta0, alpha_, beta_){
+  
+  J = length(alpha_)
+  
+  if (J == 1) {
+    return(ProbMBeatsG(alpha0, beta0, alpha_, beta_))
+  
+    } else {
+      
+    k = 0:(beta_[J] - 1)
+    result = Prob0beatsAll(alpha0, beta0, head(alpha_, -1), head(beta_, -1))
+    result = result - prod( (beta0 + k)/(alpha0 + beta0 + k) )*sum( sapply(0:(alpha_[J] - 1), InnerTerm,
+                                                                           alpha0 = alpha0, beta0 = beta0,
+                                                                           alpha_ = alpha_, beta_ = beta_,
+                                                                           J = J))
+    return(result)
+    }
+}</code></pre>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    © 2023 · Lluc Puig Codina
+
+  </section>
+</footer>
+
+      
+    </main>
+
+    
+
+  <script src="https://llucpuigcodina.github.io/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text(" ");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

@@ -5,7 +5,17 @@
     <link>https://llucpuigcodina.github.io/categories/english/</link>
     <description>Recent content in English on Lluc Puig Codina</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/english/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/english/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>X &gt; MAX for independent but not identically distributed betas</title>
+      <link>https://llucpuigcodina.github.io/posts/abtest_general_formula/</link>
+      <pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/abtest_general_formula/</guid>
+      <description>In this post I provide a general formula for the probability that the realization of a beta distribution is larger than the realizations from a sequence of beta random variables, all of them being independent.
+Assume \(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\). We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating \(\mathbb{P}(p_0 &amp;gt; max\{p_1,\dots,p_J\}\). A recursive formula in the style of the ones provided by Evan Miller is:</description>
+    </item>
+    
     <item>
       <title>Growth-at-Risk IMF Tool</title>
       <link>https://llucpuigcodina.github.io/posts/growth_at_risk/</link>
@@ -42,17 +52,6 @@ Thew hole idea of the test is the following: let \(X\) be a random variable with
       <guid>https://llucpuigcodina.github.io/posts/determinacy_gabaix_new_keynesian_model/</guid>
       <description>Herein I conduct similar policy experiments to those of Carlstrom et al. (2012) with a Behavioural New Keynesian (BNK) model, instead of the standard New Keynesian model (only) or a sticky information model. The BNK model does a good job of solving previous issues with the standard model (as already noted by Gabaix).
 All of this work is already, explicitly or implicitly, in the cited articles, so I wouldn’t claim to show anything new.</description>
-    </item>
-    
-    <item>
-      <title>Determinacy in a New Keynesian Model under a Money Growth Rule</title>
-      <link>https://llucpuigcodina.github.io/posts/determinacy_new_keynesian_model/</link>
-      <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://llucpuigcodina.github.io/posts/determinacy_new_keynesian_model/</guid>
-      <description>body {text-align: justify}This note derives the analytical conditions for determinacy in a canonical New Keynesian model under an exogenous path for the growth rate of the money supply. Under cash-when-I’m-done timing the model is always determinate while indeterminacy can arise with cash-in-advance timing.
-FULL TEXT: See in “Research”
-Update: Now you can also find my presentation of the paper at the IV Navarra-Basque Country Macroeconomics Workshop.</description>
     </item>
     
   </channel>
