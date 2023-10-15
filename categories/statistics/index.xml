@@ -13,7 +13,7 @@
       
       <guid>https://llucpuigcodina.github.io/posts/abtest_general_formula/</guid>
       <description>In this post I provide a general formula for the probability that the realization of a beta distribution is larger than the realizations from a sequence of beta random variables, all of them being independent.
-Assume \(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\). We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating \(\mathbb{P}(p_0 &amp;gt; max\{p_1,\dots,p_J\}\). A recursive formula in the style of the ones provided by Evan Miller is:</description>
+Assume \(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\). We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating \(\mathbb{P}(p_0 &amp;gt; max\{p_1,\dots,p_J\}\). \(\alpha_j\)’s and \(\beta_j\)’s are restricted to the positive integers.</description>
     </item>
     
   </channel>
