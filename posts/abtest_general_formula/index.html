@@ -114,7 +114,7 @@ text-align: justify}
 <p>In this post I provide a general formula for the probability that the realization of a beta random variable is larger than the realizations from a sequence of beta random variables, all of them being independent.</p>
 <p>Assume <span class="math inline">\(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\)</span>. We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating <span class="math inline">\(\mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\})\)</span>. <span class="math inline">\(\alpha_j\)</span>’s and <span class="math inline">\(\beta_j\)</span>’s are restricted to the positive integers. A general recursive formula in the style of the ones provided by <a href="https://www.evanmiller.org/bayesian-ab-testing.html#binary_abc">Evan Miller</a> is:</p>
 <span class="math display">\[\begin{aligned}
-\mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\}) = \mathbb{P}(p_0(\alpha_0, \beta_0) &amp;&gt; max \{p_1,\dots, p_{J-1}\}) +\\ &amp;- \frac{1}{B(\alpha_0,\beta_0)} \sum_{i=1}^{\alpha_J}\frac{B(\alpha_0 + i -1, \beta_0 + \beta_J)\Gamma(\beta_0 + \beta_J)}{\Gamma(\beta_J)\Gamma(i)} \mathbb{P}(p_0(\alpha_0 + i -1, \beta_0+ \beta_J) &gt; max\{p_1,\dots,p_{J-1}\})
+\mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\}) = \mathbb{P}(p_0(\alpha_0, \beta_0) &amp;&gt; max \{p_1,\dots, p_{J-1}\}) +\\ &amp;- \frac{1}{B(\alpha_0,\beta_0)\Gamma(\beta_J)} \sum_{i=1}^{\alpha_J}\frac{B(\alpha_0 + i -1, \beta_0 + \beta_J)\Gamma(\beta_J + i -1)}{\Gamma(i)} \mathbb{P}(p_0(\alpha_0 + i -1, \beta_0+ \beta_J) &gt; max\{p_1,\dots,p_{J-1}\})
 \end{aligned}\]</span>
 <p>where</p>
 <span class="math display">\[\begin{aligned}
@@ -132,7 +132,7 @@ text-align: justify}
 }
 
 InnerTerm &lt;- function(i, a0, b0, bJ, aS, bS){
-  return(exp(lbeta(a0 + i - 1, b0 + bJ) + lgamma(bJ + i - 1) - lgamma(bJ) - lgamma(i)
+  return(exp(lbeta(a0 + i - 1, b0 + bJ) + lgamma(bJ + i - 1) - lgamma(i)
              )*Prob0beatsAll(a0 + i - 1, b0 + bJ, head(aS, -1), head(bS, -1)) )  
 }
 
@@ -148,7 +148,7 @@ Prob0beatsAll &lt;- function(alpha0, beta0, alpha_, beta_){
 
       return( Prob0beatsAll(alpha0, beta0, head(alpha_, -1), head(beta_, -1))
                 - sum(sapply(1:alpha_[J], InnerTerm, a0 = alpha0, b0 = beta0, bJ = beta_[J],
-                                aS = alpha_, bS = beta_))/beta(alpha0, beta0) )
+                                aS = alpha_, bS = beta_))*exp(-lbeta(alpha0, beta0) - lgamma(beta_[J])) )
       }
 }</code></pre>
 <pre class="r"><code>alpha0 = 5
@@ -165,7 +165,7 @@ print(Prob0beatsAll(alpha0, beta0, alpha_, beta_)) # This confirms the 1/(J+1) c
 \mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\}) &amp;= \int_0^1 \int_0^{p_0} \int_0^{p_0} \cdots \int_0^{p_0} \prod_{j=J}^0 f_{j}(p_{j}) dj = \int_0^1 \prod_{j=1}^{J-1} \mathbb{I}_{p_0}(\alpha_j,\beta_j) \frac{p_0^{\alpha_0-1}(1-p_0)^{\beta_0-1}}{B(\alpha_0, \beta_0)} \mathbb{I}_{p_0}(\alpha_J,\beta_J) dp_0 \\
 &amp;=  \int_0^1 \prod_{j=1}^{J-1} \mathbb{I}_{p_0}(\alpha_j,\beta_j) \frac{p_0^{\alpha_0-1}(1-p_0)^{\beta_0-1}}{B(\alpha_0, \beta_0)} \left(1-\sum_{i=1}^{\alpha_J}\frac{\Gamma(\beta_J +i-1)}{\Gamma(\beta_J)\Gamma(i)}p_0^{i-1}(1-p_0)^{\beta_J} \right)  dp_0\\
 &amp;= \mathbb{P}(p_0 &gt; max\{p_1,\dots,p_{J-1}\}) - \sum_{i=1}^{\alpha_J}\frac{\Gamma(\beta_J +i-1)}{\Gamma(\beta_J)\Gamma(i)}\int_0^1\prod_{j=1}^{J-1} \mathbb{I}_{p_0}(\alpha_j,\beta_j) \frac{p_0^{\alpha_0 +i-2}(1-p_0)^{\beta_0+\beta_J-1}}{B(\alpha_0,\beta_0)} dp_0 \\
-&amp;= \mathbb{P}(p_0 &gt; max\{p_1,\dots,p_{J-1}\}) - \frac{1}{B(\alpha_0,\beta_0)}\sum_{i=1}^{\alpha_J}\frac{B(\alpha_0 +i-1, \beta_0+\beta_J) \Gamma(\beta_J +i-1)}{\Gamma(\beta_J)\Gamma(i)}\int_0^1 \prod_{j=1}^{J-1} \mathbb{I}_{p_0}(\alpha_j,\beta_j) \frac{p_0^{\alpha_0 +i-2}(1-p_0)^{\beta_0+\beta_J-1}}{B(\alpha_0 +i-1, \beta_0+\beta_J)} dp_0
+&amp;= \mathbb{P}(p_0 &gt; max\{p_1,\dots,p_{J-1}\}) - \sum_{i=1}^{\alpha_J}\frac{B(\alpha_0 +i-1, \beta_0+\beta_J) \Gamma(\beta_J +i-1)}{B(\alpha_0,\beta_0)\Gamma(\beta_J)\Gamma(i)}\int_0^1 \prod_{j=1}^{J-1} \mathbb{I}_{p_0}(\alpha_j,\beta_j) \frac{p_0^{\alpha_0 +i-2}(1-p_0)^{\beta_0+\beta_J-1}}{B(\alpha_0 +i-1, \beta_0+\beta_J)} dp_0
 
 \end{aligned}\]</span>
 <p>where <span class="math inline">\(\mathbb{I}\)</span> is the regularized gamma function. The property used in the second line is: <span class="math inline">\(\mathbb{I}_x(a,b) = 1- \sum_{i=1}^b\frac{\Gamma(a+i-1)}{\Gamma(a)\Gamma(i)}x^a(1-x)^{i-1}\)</span> if <span class="math inline">\(b\)</span> is an integer.</p>
