@@ -5,7 +5,17 @@
     <link>https://llucpuigcodina.github.io/categories/econometrics/</link>
     <description>Recent content in Econometrics on Lluc Puig Codina</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/econometrics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/econometrics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Drawing with Restrictions in MCMC</title>
+      <link>https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/</link>
+      <pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/</guid>
+      <description>body {text-align: justify}It is often the case that, when simulating from posterior distributions using MCMC, researchers wish to impose restrictions on some parameters.
+Two illustrative cases are discussed in Geweke’s Contemporary Bayesian Econometrics and Statistics Example 4.2.2 and 4.3.2 . The following description of the setup (and notation) is taken almost verbatim from Geweke. These examples consider a normal linear regression model with Gaussian disturbances in which the prior of \(\boldsymbol{\beta}\) (the regression coefficient) given \(h\) (precision) is \(\mathscr{N}(\underline{\boldsymbol{\beta}}, \underline{\textbf{H}})\) truncated to a set \(S\subseteq \mathbb{R}^k\).</description>
+    </item>
+    
     <item>
       <title>Growth-at-Risk IMF Tool</title>
       <link>https://llucpuigcodina.github.io/posts/growth_at_risk/</link>

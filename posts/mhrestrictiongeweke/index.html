@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Lluc Puig Codina">
+    <meta name="description" content="https://llucpuigcodina.github.io">
+    <meta name="keywords" content="blog, economics,personal">
+    
+    <meta property="og:site_name" content="Lluc Puig Codina">
+    <meta property="og:title" content="Lluc Puig Codina">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/">
+    <meta property="og:image" content="https://llucpuigcodina.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/">
+    <meta name="twitter:image" content="https://llucpuigcodina.github.io">
+
+    <base href="https://llucpuigcodina.github.io">
+    <title>
+  Drawing with Restrictions in MCMC - Lluc Puig Codina
+</title>
+
+    <link rel="canonical" href="https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://llucpuigcodina.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://llucpuigcodina.github.io/images/logo.png" sizes="32x32"/>
+
+    
+
+    <meta name="generator" content="Hugo 0.89.2" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Lluc Puig Codina</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/research/">Research</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/teaching/">Teaching</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/posts/">Blog</a>
+            </li>
+          
+        
+      </ul>
+    </label>
+  </section>
+  
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Drawing with Restrictions in MCMC</h1>
+      <h2 class="date">October 13, 2023</h2>
+
+      
+    </header>
+
+    
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<p>It is often the case that, when simulating from posterior distributions using MCMC, researchers wish to impose restrictions on some parameters.</p>
+<p>Two illustrative cases are discussed in Geweke’s <em>Contemporary Bayesian Econometrics and Statistics</em> Example 4.2.2 and 4.3.2 . The following description of the setup (and notation) is taken almost verbatim from Geweke. These examples consider a normal linear regression model with Gaussian disturbances in which the prior of <span class="math inline">\(\boldsymbol{\beta}\)</span> (the regression coefficient) given <span class="math inline">\(h\)</span> (precision) is <span class="math inline">\(\mathscr{N}(\underline{\boldsymbol{\beta}}, \underline{\textbf{H}})\)</span> truncated to a set <span class="math inline">\(S\subseteq \mathbb{R}^k\)</span>. A typical acceptance sampling algorithm used once we enter the stage of drawing <span class="math inline">\(\boldsymbol{\beta}^{(m)}\)</span> is:</p>
+<ol style="list-style-type: decimal">
+<li><p>Draw candidate <span class="math inline">\(\boldsymbol{\beta}^* \sim \mathscr{N}(\bar{\boldsymbol{\beta}}, \bar{\textbf{H}})\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\boldsymbol{\beta}^* \in S\)</span>, set <span class="math inline">\(\boldsymbol{\beta}^{(m)} = \boldsymbol{\beta}^*\)</span>. Otherwise (<span class="math inline">\(\boldsymbol{\beta}^* \notin S\)</span>) go to 1.</p></li>
+</ol>
+<p>The acceptance probability is:</p>
+<p><span class="math display">\[\begin{equation}
+\tag{1}
+(2\pi)^{k/2}|\textbf{H}|^{1/2}\int_S \exp\left [-(\boldsymbol{\beta} - \bar{\boldsymbol{\beta}})&#39;\bar{\textbf{H}}(\boldsymbol{\beta}- \bar{\boldsymbol{\beta}}) \right]d\boldsymbol{\beta}
+\end{equation}\]</span></p>
+<p>An undesirable characteristic of this algorithm is that if the above probability is small the MCMC routine may get stuck in the conditional draw of <span class="math inline">\(\boldsymbol{\beta}\)</span> given the rest of the parameters. If the restriction is an inequality restriction, see Geweke (1991) and Gosh (2015). Non-linear restrictions are fairly common, such imposing that the VAR parameters are in a stationary region, see Blake (2012). As an alternative to this algorithm Geweke suggests a <em>random-walk Metropolist-Hastings</em> algorithm in which the transition density <span class="math inline">\(q(\boldsymbol{\beta}^*|\boldsymbol{\beta}^{(m)}, H)\)</span> is that of a <span class="math inline">\(\mathscr{N}(\boldsymbol{\beta}^{(m)}, \textbf{V})\)</span>. The acceptance probability is</p>
+<p><span class="math display">\[
+\alpha(\boldsymbol{\beta}^*|\boldsymbol{\beta}^{(m)}, H) = \frac{\exp \left[-(\boldsymbol{\beta}^*-\bar{\boldsymbol{\beta}})&#39;\bar{\textbf{H}}(\boldsymbol{\beta}^*-\bar{\boldsymbol{\beta}})/2 \right]}{\exp \left[-(\boldsymbol{\beta}^{(m)}-\bar{\boldsymbol{\beta}})&#39;\bar{\textbf{H}}(\boldsymbol{\beta}^{(m)}-\bar{\boldsymbol{\beta}})/2 \right]}
+\]</span></p>
+<p>if <span class="math inline">\(\boldsymbol{\beta}^* \in S\)</span>, and 0 if <span class="math inline">\(\boldsymbol{\beta}^* \notin S\)</span>. Appropriate tunning of <span class="math inline">\(\textbf{V}\)</span> is necessary. Large <span class="math inline">\(\textbf{V}\)</span> will lead to few candidates in <span class="math inline">\(S\)</span>, while small <span class="math inline">\(\textbf{V}\)</span> will lead to little exploration in the region of <span class="math inline">\(S\)</span>.</p>
+<p>The above algorithm fails to exploit an additional characteristic present in the example and in many other cases: the posterior distribution (given other parameters) without the restriction is of a known form easy to sample from. For example, in the above case the posterior of <span class="math inline">\(\boldsymbol{\beta}\)</span> given <span class="math inline">\(h\)</span> is <span class="math inline">\(\mathscr{N}(\bar{\boldsymbol{\beta}}, \bar{\textbf{H}})\)</span> if we ignore the restriction. We can therefore provide a much more efficient algorithm based on an <em>independent Metropolis chain</em>. In the case of the independence chain, the general formula for the acceptance probability simplifies to</p>
+<p><span class="math display">\[
+\alpha(\boldsymbol{\theta}^*|\boldsymbol{\theta}^{(m-1)}, H) = \min\left \{\frac{w(\boldsymbol{\theta}^*)}{w(\boldsymbol{\theta}^{(m-1)})} \right \}; \ \ \ w(\boldsymbol{\theta}) = \frac{p(\boldsymbol{\theta}|I)}{q(\boldsymbol{\theta}|H)}
+\]</span></p>
+<p>If we set the proposal distribution equal to the posterior distribution without the restriction we obtain the following relationship:</p>
+<p><span class="math display">\[\begin{equation}
+\tag{2}
+p(\boldsymbol{\theta}|I) = \frac{q(\boldsymbol{\theta})}{\underbrace{\int_S q(\boldsymbol{\theta}|H)d\boldsymbol{\theta}}_k}
+\end{equation}\]</span></p>
+<p>if <span class="math inline">\(\boldsymbol{\theta} \in S\)</span>, 0 otherwise. Assume <span class="math inline">\(\boldsymbol{\theta}^{(m-1)} \in S\)</span>. Therefore, if <span class="math inline">\(\boldsymbol{\theta}^* \in S\)</span>, <span class="math inline">\(\alpha(\boldsymbol{\theta}^*|\boldsymbol{\theta}^{(m-1)},H) = \min\left\{\frac{1/k}{1/k}, 1\right\} = 1\)</span>. Otherwise, if <span class="math inline">\(\boldsymbol{\theta}^* \notin S\)</span>, <span class="math inline">\(\alpha(\boldsymbol{\theta}^*|\boldsymbol{\theta}^{(m-1)},H) = \min\left\{ \frac{0/q(\boldsymbol{\theta}^*|H)}{1/k}, 1 \right\} = 0\)</span>. This suggests the following procedure:</p>
+<ol style="list-style-type: decimal">
+<li>Draw <span class="math inline">\(\boldsymbol{\beta}^* \sim \mathscr{N}(\bar{\boldsymbol{\beta}}, \bar{\textbf{H}})\)</span>.</li>
+<li>If <span class="math inline">\(\boldsymbol{\beta}^* \in S\)</span>, set <span class="math inline">\(\boldsymbol{\beta}^{(m)} = \boldsymbol{\beta}^*\)</span>. Otherwise set <span class="math inline">\(\boldsymbol{\beta}^{(m)} = \boldsymbol{\beta}^{(m-1)}\)</span>.</li>
+</ol>
+<p>One should also make sure that the starting value, <span class="math inline">\(\boldsymbol{\theta}^{(0)}\)</span> is inside <span class="math inline">\(S\)</span>.</p>
+<p>The reader will outright notice that this procedure has the highest possible acceptance rate when <span class="math inline">\(\boldsymbol{\beta}^* \in S\)</span> and the same acceptance (0) as Geweke’s approach when the candidate is not in the restriction region. Furthermore, accepted draws explore the region <span class="math inline">\(S\)</span> in the same proportion as the posterior distribution under the restriction, from equation 2. The above <em>independence Metropolis chain</em> proposal seems to be strictly superior to that of Geweke’s, albeit less general due to the necessity of having a posterior, without the restriction, of known form. The advantage of the MH based routines proposed here is that if the proposal draw is not inside the restriction region <span class="math inline">\(S\)</span> the algorithm will continue. On the contrary, the acceptance algorithm might get stuck. Skipping can be helpful if the low probability of acceptance in 1 is due to a particularly unfortunate and unlikely draw of a parameter (other than <span class="math inline">\(\boldsymbol{\beta}\)</span>) in the MCMC routine.</p>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Blake, A. P., &amp; Mumtaz, H. (2012). <em>Applied Bayesian econometrics for central bankers</em>. Technical Books.</p>
+<p>Geweke, J. (1991), <em>Efficient Simulation From the Multivariate Normal and Student t-Distributions Subject to Linear Constraints</em>, in Computer Sciences and Statistics Proceedings of the 23d Symposium on the Interface, pp. 571-578.</p>
+<p>Geweke, J. (2005). <em>Contemporary Bayesian econometrics and statistics</em>. John Wiley &amp; Sons.</p>
+<p>Li, Y., &amp; Ghosh, S. K. (2015). <em>Efficient sampling methods for truncated multivariate normal and student-t distributions subject to linear inequality constraints</em>. Journal of Statistical Theory and Practice, 9, 712-732.</p>
+</div>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    © 2023 · Lluc Puig Codina
+
+  </section>
+</footer>
+
+      
+    </main>
+
+    
+
+  <script src="https://llucpuigcodina.github.io/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text(" ");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

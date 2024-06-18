@@ -7,13 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 13 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Drawing with Restrictions in MCMC</title>
+      <link>https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/</link>
+      <pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/</guid>
+      <description>body {text-align: justify}It is often the case that, when simulating from posterior distributions using MCMC, researchers wish to impose restrictions on some parameters.
+Two illustrative cases are discussed in Geweke’s Contemporary Bayesian Econometrics and Statistics Example 4.2.2 and 4.3.2 . The following description of the setup (and notation) is taken almost verbatim from Geweke. These examples consider a normal linear regression model with Gaussian disturbances in which the prior of \(\boldsymbol{\beta}\) (the regression coefficient) given \(h\) (precision) is \(\mathscr{N}(\underline{\boldsymbol{\beta}}, \underline{\textbf{H}})\) truncated to a set \(S\subseteq \mathbb{R}^k\).</description>
+    </item>
+    
+    <item>
       <title>X &gt; MAX for independent but not identically distributed betas</title>
       <link>https://llucpuigcodina.github.io/posts/abtest_general_formula/</link>
       <pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate>
       
       <guid>https://llucpuigcodina.github.io/posts/abtest_general_formula/</guid>
-      <description>body {text-align: justify}In this post I provide a general formula for the probability that the realization of a beta random variable is larger than the realizations from a sequence of beta random variables, all of them being independent.
-Assume \(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\). We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating \(\mathbb{P}(p_0 &amp;gt; max\{p_1,\dots,p_J\})\).</description>
+      <description>body {text-align: justify}In this post I provide a general formula for the probability that the realization of a beta random variable is larger than the realizations from a sequence of beta random variables, all of them being independent. Assume \(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\). We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating \(\mathbb{P}(p_0 &amp;gt; max\{p_1,\dots,p_J\})\).</description>
     </item>
     
     <item>
@@ -65,13 +74,13 @@ També va aparèixer a la versió impresa del 11 de Gener de 2017.</description>
     </item>
     
     <item>
-      <title></title>
+      <title>About</title>
       <link>https://llucpuigcodina.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://llucpuigcodina.github.io/about/</guid>
-      <description>body {text-align: justify}Lluc Puig CodinaE-mail|GithubPh.D. Candidate in Economics at University of Alicante. My interests lie in macroeconometrics and finance. On this website you can find some of my research and occasional rants.
-body {text-align: justify}.costum-container {display: flex;justify-content: space-between;}.costum-column {flex: 1;padding: 10px;}.costum-separator {width: 1px;background-color: #ccc;}&amp;lt;div class=&amp;quot;costum-column&amp;quot; style=&amp;quot;text-align: right;&amp;quot;&amp;gt;&amp;lt;!</description>
+      <description> Ph.D. Candidate in Economics at University of Alicante. My interests lie in macroeconometrics and finance. On this website you can find some of my research and occasional rants.
+ </description>
     </item>
     
     <item>
