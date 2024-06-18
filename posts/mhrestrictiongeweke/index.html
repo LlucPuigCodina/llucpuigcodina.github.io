@@ -134,7 +134,7 @@ text-align: justify}
 <p>If we set the proposal distribution equal to the posterior distribution without the restriction we obtain the following relationship:</p>
 <p><span class="math display">\[\begin{equation}
 \tag{2}
-p(\boldsymbol{\theta}|I) = \frac{q(\boldsymbol{\theta})}{\underbrace{\int_S q(\boldsymbol{\theta}|H)d\boldsymbol{\theta}}_k}
+p(\boldsymbol{\theta}|I) = \frac{q(\boldsymbol{\theta}|H)}{\underbrace{\int_S q(\boldsymbol{\theta}|H)d\boldsymbol{\theta}}_k}
 \end{equation}\]</span></p>
 <p>if <span class="math inline">\(\boldsymbol{\theta} \in S\)</span>, 0 otherwise. Assume <span class="math inline">\(\boldsymbol{\theta}^{(m-1)} \in S\)</span>. Therefore, if <span class="math inline">\(\boldsymbol{\theta}^* \in S\)</span>, <span class="math inline">\(\alpha(\boldsymbol{\theta}^*|\boldsymbol{\theta}^{(m-1)},H) = \min\left\{\frac{1/k}{1/k}, 1\right\} = 1\)</span>. Otherwise, if <span class="math inline">\(\boldsymbol{\theta}^* \notin S\)</span>, <span class="math inline">\(\alpha(\boldsymbol{\theta}^*|\boldsymbol{\theta}^{(m-1)},H) = \min\left\{ \frac{0/q(\boldsymbol{\theta}^*|H)}{1/k}, 1 \right\} = 0\)</span>. This suggests the following procedure:</p>
 <ol style="list-style-type: decimal">
