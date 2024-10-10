@@ -5,7 +5,17 @@
     <link>https://llucpuigcodina.github.io/categories/statistics/</link>
     <description>Recent content in Statistics on Lluc Puig Codina</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 18 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>On the limiting behaviour of the Uhlig 1997 Stochastic Volatility model</title>
+      <link>https://llucpuigcodina.github.io/posts/uhligstochvol/</link>
+      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/uhligstochvol/</guid>
+      <description>body {text-align: justify}Uhlig (1997) proposed a VAR with stochastic volatility where precision, the inverse of variance, is given by a multiplicative process driven by a beta random variable. The model lends itself to a high level of tractability since exact updating formulas are obtained. For the simple scalar case the model is as follows:
+\[y_t = \beta y_{t-1} + h_t^{-1/2}\epsilon_t, \ \ \epsilon_t \overset{iid}{\sim}\mathscr{N}(0,1) \\h_{t+1} = h_t \mathscr{V}_t/\lambda, \ \ \mathscr{V}_t \overset{iid}{\sim}\mathscr{B}(\nu/2, 1/2)\]where \(h_1 \sim \mathscr{G}(s_0, \nu)\).</description>
+    </item>
+    
     <item>
       <title>Drawing with Restrictions in MCMC</title>
       <link>https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/</link>

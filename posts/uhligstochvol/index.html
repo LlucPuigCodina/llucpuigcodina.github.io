@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Lluc Puig Codina">
+    <meta name="description" content="https://llucpuigcodina.github.io">
+    <meta name="keywords" content="blog, economics,personal">
+    
+    <meta property="og:site_name" content="Lluc Puig Codina">
+    <meta property="og:title" content="Lluc Puig Codina">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://llucpuigcodina.github.io/posts/uhligstochvol/">
+    <meta property="og:image" content="https://llucpuigcodina.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://llucpuigcodina.github.io/posts/uhligstochvol/">
+    <meta name="twitter:image" content="https://llucpuigcodina.github.io">
+
+    <base href="https://llucpuigcodina.github.io">
+    <title>
+  On the limiting behaviour of the Uhlig 1997 Stochastic Volatility model - Lluc Puig Codina
+</title>
+
+    <link rel="canonical" href="https://llucpuigcodina.github.io/posts/uhligstochvol/">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://llucpuigcodina.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://llucpuigcodina.github.io/images/logo.png" sizes="32x32"/>
+
+    
+
+    <meta name="generator" content="Hugo 0.89.2" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Lluc Puig Codina</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/research/">Research</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/teaching/">Teaching</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://llucpuigcodina.github.io/posts/">Blog</a>
+            </li>
+          
+        
+      </ul>
+    </label>
+  </section>
+  
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">On the limiting behaviour of the Uhlig 1997 Stochastic Volatility model</h1>
+      <h2 class="date">October 9, 2024</h2>
+
+      
+    </header>
+
+    
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<p>Uhlig (1997) proposed a VAR with stochastic volatility where precision, the inverse of variance, is given by a multiplicative process driven by a beta random variable. The model lends itself to a high level of tractability since exact updating formulas are obtained. For the simple scalar case the model is as follows:</p>
+<p><span class="math display">\[
+y_t = \beta y_{t-1} + h_t^{-1/2}\epsilon_t, \ \ \epsilon_t \overset{iid}{\sim}\mathscr{N}(0,1) \\
+h_{t+1} = h_t \mathscr{V}_t/\lambda, \ \ \mathscr{V}_t \overset{iid}{\sim}\mathscr{B}(\nu/2, 1/2)
+\]</span>
+where <span class="math inline">\(h_1 \sim \mathscr{G}(s_0, \nu)\)</span>. The multiplicative process for precision can be analyzed in the light of results by Nelson (1990). The density of the beta innovation is given by:</p>
+<p><span class="math display">\[
+f_\mathscr{V}(v) = \frac{\Gamma\left( \frac{\nu+1}{2} \right)}{\Gamma\left(\frac{1}{2}\right)\Gamma\left(\frac{\nu}{2}\right)}v^{\frac{1}{2}-1}(1-v)^{\frac{\nu}{2}-1}
+\]</span></p>
+<p>Notice we can move <span class="math inline">\(h_t\)</span> to the left, take logs and expectations, assuming the parameters to be known:
+<span class="math display">\[
+\mathbb{E}\left\{\ln\left(\frac{h_{t+1}}{h_t}\right) \right\} = \mathbb{E}\left\{ \ln\left( \mathscr{V}_t \right) \right\} - \ln(\lambda)
+\]</span>
+This term is the average growth rate of <span class="math inline">\(h_t\)</span>, precision. If the term is positive, it will grow to <span class="math inline">\(+\infty\)</span> almost surely. If the term is negative it will go to 0 almost surely. Therefore, it seems that the only ‘reasonable’ specification is to let this term be 0. In other words, pick <span class="math inline">\(\lambda\)</span> such that <span class="math inline">\(\ln h_t\)</span> is a random walk. This will be the case when <span class="math inline">\(\lambda = \exp\left( \psi\left( \frac{1}{2} \right) - \psi\left( \frac{\nu+1}{2} \right) \right)\)</span>; where <span class="math inline">\(\psi(\cdot)\)</span> is the diagamma function. An interesting and relevant question about this process is the following: Does this model nest an homoskedastic model as a limiting case? Is there some set of parameters that would collapse the model to a standard Gaussian AR(1)?</p>
+<p>In the words of Uhlig:</p>
+<blockquote>
+<p>For <span class="math inline">\(\nu \rightarrow \infty\)</span> one obtains a model where <span class="math inline">\(h_1\)</span> is known a priori, <span class="math inline">\(h_1 = s_0^{-1}\)</span>, and <span class="math inline">\(h_{t+1} = h_t(\nu+1)/(\lambda(\nu+2))\)</span>. In other words, the model allows for the greater time variation in the prescision, the smaller the parameter <span class="math inline">\(\nu\)</span>.</p>
+</blockquote>
+<p>Unfortunately I am not able to obtain this limiting case. The mode is not <span class="math inline">\((\nu+1)/(\nu+2) \rightarrow 1\)</span> but rather 0 as the <span class="math inline">\(\alpha\)</span> coefficient of the Beta distribution is lower than 1 (1/2).</p>
+<p><img src="/posts/Uhligstochvol_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The previous analysis does not fully do justice to the question since the <span class="math inline">\(\lambda\)</span> is not fixed, but depends on <span class="math inline">\(\nu\)</span>. In the following derivations I will use the following properties: <span class="math inline">\(\psi(1/2) = -\gamma -2\ln(2)\)</span> and <span class="math inline">\(\psi(x) \approx \ln(x) - \frac{1}{2x}\)</span> for large <span class="math inline">\(x\)</span>. <span class="math inline">\(\gamma\)</span> is the Euler-Mascheroni constant. It turns out that under the log random walk specification the expected value of the multiplicative shock is larger than 1:</p>
+<p><span class="math display">\[
+\mathbb{E}\left( \mathscr{V_t}/\lambda \right) = \frac{1}{\lambda}\mathbb{E}\left( \mathscr{V_t}\right) = \frac{1}{\lambda} \frac{1}{\nu+1} = \frac{4e^\gamma e^{\psi\left(\frac{\nu+1}{2}\right)}}{\nu+1} \approx \frac{4e^\gamma e^{\ln(\nu+1)-\ln(2)-1/(\nu+1)}}{\nu+1} = 2e^\gamma e^{-1/(\nu+1)}
+\]</span>
+So <span class="math inline">\(\lim_{\nu \rightarrow +\infty} \mathbb{E}\left\{ \mathscr{V}_t/\lambda \right\} = 2e^\gamma &gt; 1\)</span>. This is perfectly compatible with <span class="math inline">\(\mathbb{E}\left\{ \ln(\mathscr{V}_t/\lambda) \right\} = 0\)</span> due to the convexity effect of the logarithm. The variance does not go to 0:</p>
+<p><span class="math display">\[
+\mathbb{V}ar\left\{\mathscr{V}_t/\lambda \right\} = \frac{1}{\lambda^2} \mathbb{V}ar\left\{\mathscr{V}_t \right\} = \frac{1}{\lambda^2}\frac{2\nu}{(1+\nu)^2(3+\nu)} = 16e^{2\gamma}e^{2\psi\left(\frac{\nu+1}{2}\right)}\frac{2\nu}{(1+\nu)^2(3+\nu)} = \frac{32\nu e^{2\gamma + 2\psi\left( \frac{\nu+1}{2} \right)}}{(1+\nu)^2(3+\nu)} \approx \frac{32\nu e^{2\gamma + 2\ln(1+\nu) -2\ln(2) -2/(1+\nu)}}{(1+\nu)^2(3+\nu)} = 8e^{2\gamma}\frac{\nu e^{-2/(1+\nu)}}{3+\nu}
+\]</span>
+So <span class="math inline">\(\lim_{\nu\rightarrow +\infty} \mathbb{V}ar\left\{ \mathscr{V}_t/\lambda \right\} = 8e^{2\gamma}\)</span>.</p>
+<div id="references" class="section level3">
+<h3>References</h3>
+</div>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    © 2024 · Lluc Puig Codina
+
+  </section>
+</footer>
+
+      
+    </main>
+
+    
+
+  <script src="https://llucpuigcodina.github.io/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text(" ");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>
