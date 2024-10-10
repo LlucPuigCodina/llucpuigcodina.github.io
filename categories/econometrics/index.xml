@@ -12,8 +12,8 @@
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
       
       <guid>https://llucpuigcodina.github.io/posts/uhligstochvol/</guid>
-      <description>body {text-align: justify}Uhlig (1997) proposed a VAR with stochastic volatility where precision, the inverse of variance, is given by a multiplicative process driven by a beta random variable. The model lends itself to a high level of tractability since exact updating formulas are obtained. For the simple scalar case the model is as follows:
-\[y_t = \beta y_{t-1} + h_t^{-1/2}\epsilon_t, \ \ \epsilon_t \overset{iid}{\sim}\mathscr{N}(0,1) \\h_{t+1} = h_t \mathscr{V}_t/\lambda, \ \ \mathscr{V}_t \overset{iid}{\sim}\mathscr{B}(\nu/2, 1/2)\]where \(h_1 \sim \mathscr{G}(s_0, \nu)\).</description>
+      <description>body {text-align: justify}Uhlig (1997) proposed a VAR with stochastic volatility where precision, the inverse of variance, is given by a multiplicative process with beta innovations. The model lends itself to a high level of tractability since exact updating formulas are obtained. Lately I’ve been playing around with this model and found out some interesting aspects.
+For the simple scalar case the model is as follows:</description>
     </item>
     
     <item>
