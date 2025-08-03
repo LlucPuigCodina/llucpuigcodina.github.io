@@ -36,15 +36,6 @@ Two illustrative cases are discussed in Geweke’s Contemporary Bayesian Econome
     </item>
     
     <item>
-      <title>Growth-at-Risk IMF Tool</title>
-      <link>https://llucpuigcodina.github.io/posts/growth_at_risk/</link>
-      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://llucpuigcodina.github.io/posts/growth_at_risk/</guid>
-      <description>body {text-align: justify}The International Monetary Fund (IMF) has been using Growth-at-Risk, a macro-econometric tool developed by them to assess risks to economic growth, in several article IV country reports (Albania, Portugal and Singapore 2018), Chapter 2 of the IMF Global Financial Conditions Report since October 2017 and so on. The tool is built taking the methodology developed in the AER April 2019 paper Vulnerable Growth.</description>
-    </item>
-    
-    <item>
       <title>Tests for correct specification of conditional predictive densities</title>
       <link>https://llucpuigcodina.github.io/posts/rossi_cond_density_tests/</link>
       <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
