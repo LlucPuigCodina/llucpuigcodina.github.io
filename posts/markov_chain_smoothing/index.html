@@ -6,25 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="Lluc Puig Codina">
-    <meta name="description" content="">
+    <meta name="description" content="https://llucpuigcodina.github.io">
     <meta name="keywords" content="blog, economics,personal">
     
     <meta property="og:site_name" content="Lluc Puig Codina">
     <meta property="og:title" content="Lluc Puig Codina">
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://llucpuigcodina.github.io/categories/">
+    <meta property="og:url" content="https://llucpuigcodina.github.io/posts/markov_chain_smoothing/">
     <meta property="og:image" content="https://llucpuigcodina.github.io">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="https://llucpuigcodina.github.io/categories/">
+    <meta name="twitter:site" content="https://llucpuigcodina.github.io/posts/markov_chain_smoothing/">
     <meta name="twitter:image" content="https://llucpuigcodina.github.io">
 
     <base href="https://llucpuigcodina.github.io">
     <title>
-  Categories - Lluc Puig Codina
+  Markov Chains and Smoothing - Lluc Puig Codina
 </title>
 
-    <link rel="canonical" href="https://llucpuigcodina.github.io/categories/">
+    <link rel="canonical" href="https://llucpuigcodina.github.io/posts/markov_chain_smoothing/">
     
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
     <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
@@ -36,9 +36,6 @@
 
     <link rel="icon" type="image/png" href="https://llucpuigcodina.github.io/images/logo.png" sizes="32x32"/>
 
-    
-      <link href="https://llucpuigcodina.github.io/categories/index.xml" rel="alternate" type="application/rss+xml" title="Lluc Puig Codina" />
-      <link href="https://llucpuigcodina.github.io/categories/index.xml" rel="feed" type="application/rss+xml" title="Lluc Puig Codina" />
     
 
     <meta name="generator" content="Hugo 0.89.2" />
@@ -98,60 +95,50 @@
 
       <div class="content">
         
-  <section class="container list">
-  <h1 class="title">Categories</h1>
-  <ul>
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Markov Chains and Smoothing</h1>
+      <h2 class="date">December 13, 2025</h2>
+
+      
+    </header>
+
     
-    <li>
-      <span>December 13, 2025</span><a href="/categories/english/">English</a>
-    </li>
-    
-    <li>
-      <span>December 13, 2025</span><a href="/categories/statistics/">Statistics</a>
-    </li>
-    
-    <li>
-      <span>October 9, 2024</span><a href="/categories/bayesian/">Bayesian</a>
-    </li>
-    
-    <li>
-      <span>October 9, 2024</span><a href="/categories/econometrics/">Econometrics</a>
-    </li>
-    
-    <li>
-      <span>June 20, 2020</span><a href="/categories/risk-management/">Risk Management</a>
-    </li>
-    
-    <li>
-      <span>June 19, 2020</span><a href="/categories/research/">Research</a>
-    </li>
-    
-    <li>
-      <span>October 5, 2017</span><a href="/categories/macroeconomics/">Macroeconomics</a>
-    </li>
-    
-    <li>
-      <span>January 5, 2017</span><a href="/categories/catalan/">Catalan</a>
-    </li>
-    
-    <li>
-      <span>January 5, 2017</span><a href="/categories/press/">Press</a>
-    </li>
-    
-    <li>
-      <span>January 5, 2017</span><a href="/categories/public-policy/">Public Policy</a>
-    </li>
-    
-  </ul>
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<p>Let <span class="math inline">\(\left\{ X_t \right\}_{t \geq 1}\)</span> be a <em>Markov chain</em>. Use notation <span class="math inline">\(x_{i:j} = \left(x_i, x_{i+1}, \dots, x_j \right)\)</span>. By the <em>Markov property</em>,</p>
+<p><span class="math display">\[
+\begin{align*}
+\pi\left(x_{1:T}\right) &amp;= \pi\left(x_{k+1:T} | x_{1:k+1} \right)\pi\left(x_{k+1}|x_{1:k} \right)\pi\left(x_k | x_{1:k-1} \right)\pi\left(x_{1:k-1}\right)\\
+&amp;= \pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)
+\end{align*}
+\]</span></p>
+<p>Then,</p>
+<p><span class="math display">\[
+\begin{align*}
+\pi\left(x_k | x_{1:k-1}, x_{k+1:T}\right) &amp;= \frac{\pi\left(x_{1:T}\right)}{\pi\left(x_{1:k-1}, x_{k+1:T} \right)}\\
+&amp;= \frac{\pi\left(x_{1:T}\right)}{\int\pi\left(x_{1:T}\right) dx_k}\\
+&amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)}{\int \pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right) dx_k} \\
+&amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)}{\pi\left(x_{k+1:T} | x_{k+1} \right) \left[ \int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k \right] \pi\left(x_{1:k-1}\right) } \\
+&amp;= \frac{\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)}{\int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k} \\
+&amp;= \frac{\pi\left(x_{k+1}, x_k | x_{k-1} \right)}{\pi\left( x_{k+1} | x_{k-1} \right)}\\
+&amp;= \pi\left( x_k | x_{k-1}, x_{k+1} \right)
+\end{align*}
+\]</span>
+Given all past and future, all information about <span class="math inline">\(x_k\)</span> is contained in it’s nearest neighbors <span class="math inline">\(x_{k-1}\)</span> and <span class="math inline">\(x_{k+1}\)</span>.</p>
+
+  </article>
+
+  <br/>
+
   
-
-
-
-
-
-
+  
 </section>
-
 
       </div>
       

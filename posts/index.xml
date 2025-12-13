@@ -5,7 +5,19 @@
     <link>https://llucpuigcodina.github.io/posts/</link>
     <description>Recent content in Posts on Lluc Puig Codina</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 09 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://llucpuigcodina.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Markov Chains and Smoothing</title>
+      <link>https://llucpuigcodina.github.io/posts/markov_chain_smoothing/</link>
+      <pubDate>Sat, 13 Dec 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/posts/markov_chain_smoothing/</guid>
+      <description>body {text-align: justify}Let \(\left\{ X_t \right\}_{t \geq 1}\) be a Markov chain. Use notation \(x_{i:j} = \left(x_i, x_{i+1}, \dots, x_j \right)\). By the Markov property,
+\[\begin{align*}\pi\left(x_{1:T}\right) &amp;amp;= \pi\left(x_{k+1:T} | x_{1:k+1} \right)\pi\left(x_{k+1}|x_{1:k} \right)\pi\left(x_k | x_{1:k-1} \right)\pi\left(x_{1:k-1}\right)\\&amp;amp;= \pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)\end{align*}\]
+Then,
+\[\begin{align*}\pi\left(x_k | x_{1:k-1}, x_{k+1:T}\right) &amp;amp;= \frac{\pi\left(x_{1:T}\right)}{\pi\left(x_{1:k-1}, x_{k+1:T} \right)}\\&amp;amp;= \frac{\pi\left(x_{1:T}\right)}{\int\pi\left(x_{1:T}\right) dx_k}\\&amp;amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)}{\int \pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right) dx_k} \\&amp;amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)}{\pi\left(x_{k+1:T} | x_{k+1} \right) \left[ \int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k \right] \pi\left(x_{1:k-1}\right) } \\&amp;amp;= \frac{\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)}{\int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k} \\&amp;amp;= \frac{\pi\left(x_{k+1}, x_k | x_{k-1} \right)}{\pi\left( x_{k+1} | x_{k-1} \right)}\\&amp;amp;= \pi\left( x_k | x_{k-1}, x_{k+1} \right)\end{align*}\]Given all past and future, all information about \(x_k\) is contained in it’s nearest neighbors \(x_{k-1}\) and \(x_{k+1}\).</description>
+    </item>
+    
     <item>
       <title>On the limiting behaviour of the Uhlig 1997 Stochastic Volatility model</title>
       <link>https://llucpuigcodina.github.io/posts/uhligstochvol/</link>
