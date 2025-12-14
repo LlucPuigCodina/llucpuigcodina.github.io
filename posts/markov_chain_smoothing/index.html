@@ -124,10 +124,10 @@ text-align: justify}
 \pi\left(x_k | x_{1:k-1}, x_{k+1:T}\right) &amp;= \frac{\pi\left(x_{1:T}\right)}{\pi\left(x_{1:k-1}, x_{k+1:T} \right)}\\
 &amp;= \frac{\pi\left(x_{1:T}\right)}{\int\pi\left(x_{1:T}\right) dx_k}\\
 &amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)}{\int \pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right) dx_k} \\
-&amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)}{\pi\left(x_{k+1:T} | x_{k+1} \right) \left[ \int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k \right] \pi\left(x_{1:k-1}\right) } \\
+&amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{1:k-1}\right)}{\pi\left(x_{k+1:T} | x_{k+1} \right)  \pi\left(x_{1:k-1}\right) } \times \frac{\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)}{\int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k}\\
 &amp;= \frac{\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)}{\int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k} \\
 &amp;= \frac{\pi\left(x_{k+1}, x_k | x_{k-1} \right)}{\pi\left( x_{k+1} | x_{k-1} \right)}\\
-&amp;= \pi\left( x_k | x_{k-1}, x_{k+1} \right)
+&amp;= \pi\left( x_k | x_{k-1}, x_{k+1} \right)\\
 \end{align*}
 \]</span>
 Given all past and future, all information about <span class="math inline">\(x_k\)</span> is contained in it’s nearest neighbors <span class="math inline">\(x_{k-1}\)</span> and <span class="math inline">\(x_{k+1}\)</span>.</p>
