@@ -88,16 +88,6 @@ També va aparèixer a la versió impresa del 11 de Gener de 2017.</description>
     
     <item>
       <title></title>
-      <link>https://llucpuigcodina.github.io/code/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://llucpuigcodina.github.io/code/</guid>
-      <description>img.img-center {display: block;margin-left: auto;margin-right: auto;}CodeSampling from the gamcon distribution of Type 1: Samples from the GamCon distribution of Type 1 of Damsleth (1975) employing the algorithm of Devroy (2012). This distribution is conjugate for the shape parameter of the Gamma distributon with known scale. Download.
-</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>https://llucpuigcodina.github.io/research/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -114,6 +104,16 @@ Puig-Junoy, J., Pascual-Argente, N., Puig-Codina, L., Planellas, L., &amp;amp; S
       <guid>https://llucpuigcodina.github.io/about/</guid>
       <description> Ph.D. Candidate in Economics at University of Alicante. My interests lie in macroeconometrics and finance. On this website you can find some of my research and occasional rants.
  </description>
+    </item>
+    
+    <item>
+      <title>Code</title>
+      <link>https://llucpuigcodina.github.io/code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://llucpuigcodina.github.io/code/</guid>
+      <description>Disclaimer: This code is provided as is, without warranty of any kind. Use at your own risk. No support or maintenance is provided. The author is not liable for any damages arising from its use.
+Sampling from the gamcon distribution of Type 1: Samples from the GamCon distribution of Type 1 of Damsleth (1975) employing the algorithm of Devroye (2012). This distribution is conjugate for the shape parameter of the Gamma distribution with known scale.</description>
     </item>
     
     <item>
