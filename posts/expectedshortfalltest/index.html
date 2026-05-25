@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="Lluc Puig Codina">
-    <meta name="description" content="https://llucpuigcodina.github.io">
+    <meta name="description" content="https://llucpuigcodina.github.io/">
     <meta name="keywords" content="blog, economics,personal">
     
     <meta property="og:site_name" content="Lluc Puig Codina">
@@ -14,12 +14,12 @@
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://llucpuigcodina.github.io/posts/expectedshortfalltest/">
-    <meta property="og:image" content="https://llucpuigcodina.github.io">
+    <meta property="og:image" content="https://llucpuigcodina.github.io/">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="https://llucpuigcodina.github.io/posts/expectedshortfalltest/">
-    <meta name="twitter:image" content="https://llucpuigcodina.github.io">
+    <meta name="twitter:image" content="https://llucpuigcodina.github.io/">
 
-    <base href="https://llucpuigcodina.github.io">
+    <base href="https://llucpuigcodina.github.io/">
     <title>
   Acerbi &amp; Szekely Unconditional Expected Shortfall Test - Lluc Puig Codina
 </title>
@@ -38,7 +38,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.89.2" />
+    <meta name="generator" content="Hugo 0.161.1">
   </head>
 
   <body class="">
@@ -115,7 +115,7 @@
 body {
 text-align: justify}
 </style>
-<p><strong>Python</strong> implementation of the Direct Expected Shortfall Test of Acerbi and Szekely (2014).I don’t know of any implementation of such test in Python. The test has been <a href="https://web.archive.org/web/20200619205610/https://www.mathworks.com/help/risk/examples/expected-shortfall-estimation-and-backtesting.html">implemented in MatLab</a>. The backtesting of Expected Shortfall has long been a difficult task due to the lack of elicitibility. The test I’ve implemented is the second test of Acerbi and Szekely and it’s full details are in the reference.</p>
+<p><strong>Python</strong> implementation of the Direct Expected Shortfall Test of Acerbi and Szekely (2014).I donâ€™t know of any implementation of such test in Python. The test has been <a href="https://web.archive.org/web/20200619205610/https://www.mathworks.com/help/risk/examples/expected-shortfall-estimation-and-backtesting.html">implemented in MatLab</a>. The backtesting of Expected Shortfall has long been a difficult task due to the lack of elicitibility. The test Iâ€™ve implemented is the second test of Acerbi and Szekely and itâ€™s full details are in the reference.</p>
 <div id="input" class="section level3">
 <h3>Input</h3>
 <pre><code>##         
@@ -173,7 +173,7 @@ Model: r_t \sim \ \ \text{i.i.d} \ \ \mathcal{N}(\hat{\mu}, \hat{\sigma})
 ## Expected number of VaR breaches: 150.0
 ## ES Statistic: -0.29866795648622135
 ## Expected ES Statistic: 0
-## Critical Value at α = 0.05: -0.13574459537691758
+## Critical Value at Î± = 0.05: -0.13574459537691758
 ## p-value: 0.0002
 ## Number of Monte Carlo simulations: 10000
 ## ----------------------------------------------------------------</code></pre>
@@ -193,14 +193,14 @@ Model: r_t \sim \ \ \text{i.i.d} \ \ \mathcal{N}(\hat{\mu}, \hat{\sigma})
 ## Expected number of VaR breaches: 150.0
 ## ES Statistic: 0.05483829919134353
 ## Expected ES Statistic: 0
-## Critical Value at α = 0.05: -0.13545881827342304
+## Critical Value at Î± = 0.05: -0.13545881827342304
 ## p-value: 0.7471
 ## Number of Monte Carlo simulations: 10000
 ## ----------------------------------------------------------------</code></pre>
 </div>
 <div id="references" class="section level3">
 <h3>References</h3>
-<p>Acerbi, Carlo, and Balazs Szekely. “<a href="https://web.archive.org/web/20200619210729/https://www.msci.com/documents/10199/22aa9922-f874-4060-b77a-0f0e267a489b">Back-testing expected shortfall.</a>” <em>Risk</em> 27.11 (2014): 76-81.</p>
+<p>Acerbi, Carlo, and Balazs Szekely. â€œ<a href="https://web.archive.org/web/20200619210729/https://www.msci.com/documents/10199/22aa9922-f874-4060-b77a-0f0e267a489b">Back-testing expected shortfall.</a>â€ <em>Risk</em> 27.11 (2014): 76-81.</p>
 </div>
 
   </article>

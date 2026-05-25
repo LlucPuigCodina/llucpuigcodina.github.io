@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="Lluc Puig Codina">
-    <meta name="description" content="https://llucpuigcodina.github.io">
+    <meta name="description" content="https://llucpuigcodina.github.io/">
     <meta name="keywords" content="blog, economics,personal">
     
     <meta property="og:site_name" content="Lluc Puig Codina">
@@ -14,12 +14,12 @@
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://llucpuigcodina.github.io/posts/abtest_general_formula/">
-    <meta property="og:image" content="https://llucpuigcodina.github.io">
+    <meta property="og:image" content="https://llucpuigcodina.github.io/">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="https://llucpuigcodina.github.io/posts/abtest_general_formula/">
-    <meta name="twitter:image" content="https://llucpuigcodina.github.io">
+    <meta name="twitter:image" content="https://llucpuigcodina.github.io/">
 
-    <base href="https://llucpuigcodina.github.io">
+    <base href="https://llucpuigcodina.github.io/">
     <title>
   X &gt; MAX for independent but not identically distributed betas - Lluc Puig Codina
 </title>
@@ -38,7 +38,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.89.2" />
+    <meta name="generator" content="Hugo 0.161.1">
   </head>
 
   <body class="">
@@ -115,7 +115,7 @@
 body {
 text-align: justify}
 </style>
-<p>In this post I provide a general formula for the probability that the realization of a beta random variable is larger than the realizations from a sequence of beta random variables, all of them being independent. Assume <span class="math inline">\(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\)</span>. We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating <span class="math inline">\(\mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\})\)</span>. <span class="math inline">\(\alpha_j\)</span>’s and <span class="math inline">\(\beta_j\)</span>’s are restricted to the positive integers. A general recursive formula in the style of the ones provided by <a href="https://www.evanmiller.org/bayesian-ab-testing.html#binary_abc">Evan Miller</a> is:</p>
+<p>In this post I provide a general formula for the probability that the realization of a beta random variable is larger than the realizations from a sequence of beta random variables, all of them being independent. Assume <span class="math inline">\(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\)</span>. We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating <span class="math inline">\(\mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\})\)</span>. <span class="math inline">\(\alpha_j\)</span>â€™s and <span class="math inline">\(\beta_j\)</span>â€™s are restricted to the positive integers. A general recursive formula in the style of the ones provided by <a href="https://www.evanmiller.org/bayesian-ab-testing.html#binary_abc">Evan Miller</a> is:</p>
 <span class="math display">\[\begin{gather*}
 \mathbb{P}(p_0 &gt; max\{p_1,\dots,p_J\}) = \mathbb{P}(p_0(\alpha_0, \beta_0) &gt; max \{p_1,\dots, p_{J-1}\}) + \\ - \frac{1}{B(\alpha_0,\beta_0)\Gamma(\beta_J)} \sum_{i=1}^{\alpha_J}\frac{B(\alpha_0 + i -1, \beta_0 + \beta_J)\Gamma(\beta_J + i -1)}{\Gamma(i)} \mathbb{P}(p_0(\alpha_0 + i -1, \beta_0+ \beta_J) &gt; max\{p_1,\dots,p_{J-1}\})
 \end{gather*}\]</span>
@@ -124,10 +124,10 @@ text-align: justify}
 \mathbb{P}(p_g &gt; p_m) = \frac{1}{B(\alpha_m, \beta_m)}\sum_{i = 1}^{\alpha_g}\frac{B(\alpha_m + i - 1, \beta_g + \beta_m)}{(\beta_g+i-1)B(i,\beta_g)}
 
 \end{aligned}\]</span>
-<p><span class="math inline">\(B\)</span> denotes the beta function and <span class="math inline">\(\Gamma\)</span> the gamma function. This object is typically of interest in the Beta-Binomial model and the Bayesian analysis of binary outcome Randomized Control Trials (A/B tests), where the prior on the probability of success is given by (conjugate) independent beta distributions. Note that that the restriction on the parameters can accommodate Haldane’s prior of <span class="math inline">\(\mathscr{B}(0,0)\)</span> as long as there are at least one success and one failure for that <span class="math inline">\(j\)</span> and the uniform prior of <span class="math inline">\(\mathscr{B}(1,1)\)</span>.</p>
-<p>Due to the reduction in dimension on the <span class="math inline">\(max\)</span> operator, it is a guarantee that the first equation will end up evaluating a bunch of the bottom equations. Each step reduces the dimension in 1 but requires <span class="math inline">\(\alpha_j+1\)</span> evaluations of the formula again so it’s computable in <span class="math inline">\(\mathcal{O}\left(\prod_{j=1}^J(\alpha_j+1)\right)\)</span> time. The formula can also be re-derived such that the sums happen over the <span class="math inline">\(\beta_j\)</span>’s, instead of the <span class="math inline">\(\alpha_j\)</span>’s but since the number of successes are typically much smaller than the failures it is more efficient to use the one provided here. They could also be combined, alternating to deliver computational time in <span class="math inline">\(\mathcal{O}\left(\prod_{j=1}^J \min \{\alpha_j+1, \beta_j +1\} \right)\)</span>.</p>
-<p>This formula adds to what was already provided by Miller. Since calculation is quite burdensome I provide here a general R function based on the recursive nature of the formula. Memoization should substantially improve the performance of the function presented here. I do not know whether someone else has derived this formula elsewhere. I have searched for a bit but haven’t found it, so I would appreciate if someone pointed me to such formula being discovered. At the end I provide a sketch of the proof.</p>
-<p>To calculate <span class="math inline">\(\mathbb{P}(p_i &gt; max\{p_0, p_1, \dots, p_{i-1}, p_{i+1}, \dots p_J\})\)</span> one only needs to reorder the <span class="math inline">\(\alpha_j\)</span>’s and <span class="math inline">\(\beta_j\)</span>’s appropriately. From simple rules of probability where <span class="math inline">\(P(A_1 \cap A_2) = P(A_1) - P(A_1 - A_2)\)</span> we can obtain that the negative term corresponds to the probability of the following event: <span class="math inline">\(p_J &gt; p_0 &gt; max\{p_1,\dots,p_{J-1}\}\)</span>; that <span class="math inline">\(p_J\)</span> is the largest and <span class="math inline">\(p_0\)</span> the second largest. This object could also be of interest, specially due to the possibility of reordering to calculate any event of the type <span class="math inline">\(p_k &gt; p_g &gt; max\{p_1,\dots,p_{k-1},p_{k+1}, \dots,p_{g-1},p_{g+1},\dots,p_J\}\)</span> and possibly other sequences of inequalities by going down the recursive rabbit hole. The relation with order statistics as just seen and the recursive nature (combinatorial or exponentially increasing evaluations), give some <a href="https://en.wikipedia.org/wiki/Bapat%E2%80%93Beg_theorem">Bapat-Beg Theorem</a> taste. It also makes me suspect of a close relationship between the maximum of beta random variables and the beta distribution itself.</p>
+<p><span class="math inline">\(B\)</span> denotes the beta function and <span class="math inline">\(\Gamma\)</span> the gamma function. This object is typically of interest in the Beta-Binomial model and the Bayesian analysis of binary outcome Randomized Control Trials (A/B tests), where the prior on the probability of success is given by (conjugate) independent beta distributions. Note that that the restriction on the parameters can accommodate Haldaneâ€™s prior of <span class="math inline">\(\mathscr{B}(0,0)\)</span> as long as there are at least one success and one failure for that <span class="math inline">\(j\)</span> and the uniform prior of <span class="math inline">\(\mathscr{B}(1,1)\)</span>.</p>
+<p>Due to the reduction in dimension on the <span class="math inline">\(max\)</span> operator, it is a guarantee that the first equation will end up evaluating a bunch of the bottom equations. Each step reduces the dimension in 1 but requires <span class="math inline">\(\alpha_j+1\)</span> evaluations of the formula again so itâ€™s computable in <span class="math inline">\(\mathcal{O}\left(\prod_{j=1}^J(\alpha_j+1)\right)\)</span> time. The formula can also be re-derived such that the sums happen over the <span class="math inline">\(\beta_j\)</span>â€™s, instead of the <span class="math inline">\(\alpha_j\)</span>â€™s but since the number of successes are typically much smaller than the failures it is more efficient to use the one provided here. They could also be combined, alternating to deliver computational time in <span class="math inline">\(\mathcal{O}\left(\prod_{j=1}^J \min \{\alpha_j+1, \beta_j +1\} \right)\)</span>.</p>
+<p>This formula adds to what was already provided by Miller. Since calculation is quite burdensome I provide here a general R function based on the recursive nature of the formula. Memoization should substantially improve the performance of the function presented here. I do not know whether someone else has derived this formula elsewhere. I have searched for a bit but havenâ€™t found it, so I would appreciate if someone pointed me to such formula being discovered. At the end I provide a sketch of the proof.</p>
+<p>To calculate <span class="math inline">\(\mathbb{P}(p_i &gt; max\{p_0, p_1, \dots, p_{i-1}, p_{i+1}, \dots p_J\})\)</span> one only needs to reorder the <span class="math inline">\(\alpha_j\)</span>â€™s and <span class="math inline">\(\beta_j\)</span>â€™s appropriately. From simple rules of probability where <span class="math inline">\(P(A_1 \cap A_2) = P(A_1) - P(A_1 - A_2)\)</span> we can obtain that the negative term corresponds to the probability of the following event: <span class="math inline">\(p_J &gt; p_0 &gt; max\{p_1,\dots,p_{J-1}\}\)</span>; that <span class="math inline">\(p_J\)</span> is the largest and <span class="math inline">\(p_0\)</span> the second largest. This object could also be of interest, specially due to the possibility of reordering to calculate any event of the type <span class="math inline">\(p_k &gt; p_g &gt; max\{p_1,\dots,p_{k-1},p_{k+1}, \dots,p_{g-1},p_{g+1},\dots,p_J\}\)</span> and possibly other sequences of inequalities by going down the recursive rabbit hole. The relation with order statistics as just seen and the recursive nature (combinatorial or exponentially increasing evaluations), give some <a href="https://en.wikipedia.org/wiki/Bapat%E2%80%93Beg_theorem">Bapat-Beg Theorem</a> taste. It also makes me suspect of a close relationship between the maximum of beta random variables and the beta distribution itself.</p>
 <pre class="r"><code>ProbGBeatsM &lt;- function(ag, bg, am, bm){
   Bf &lt;- sapply(1:ag, function(i) {exp(lbeta(am + i - 1, bg + bm) - 
                                             log(bg + i - 1) - lbeta(i, bg))})  

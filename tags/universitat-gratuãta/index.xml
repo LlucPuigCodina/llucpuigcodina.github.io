@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Catalan on Lluc Puig Codina</title>
-    <link>https://llucpuigcodina.github.io/categories/catalan/</link>
-    <description>Recent content in Catalan on Lluc Puig Codina</description>
+    <title>Universitat GratuÃ¯ta on Lluc Puig Codina</title>
+    <link>https://llucpuigcodina.github.io/tags/universitat-gratu%C3%A3ta/</link>
+    <description>Recent content in Universitat GratuÃ¯ta on Lluc Puig Codina</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://llucpuigcodina.github.io/categories/catalan/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://llucpuigcodina.github.io/tags/universitat-gratu%C3%A3ta/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Markov Chains and Smoothing</title>
       <link>https://llucpuigcodina.github.io/posts/markov_chain_smoothing/</link>
