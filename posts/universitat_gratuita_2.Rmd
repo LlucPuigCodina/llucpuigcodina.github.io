@@ -1,0 +1,15 @@
+﻿---
+title: 'La universitat gratuÃ¯ta es ajudar els rics'
+date: "2017-01-05"
+categories: ['Public Policy', 'Press', 'Catalan']
+tags: ['universitat gratuÃ¯ta'] 
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+Recentment s'ha publicat un article escrit per dos companys i jo mateix al diari *Ara*. El podeu llegir [aquÃ­](https://web.archive.org/web/20170110223706/http://www.ara.cat/opinio/Lluc-Puig-Marti-Jimenez-Roger-Medina-universitat-gratuita-ajuda-rics_0_1721827808.html).
+
+TambÃ© va aparÃ¨ixer a la versiÃ³ impresa del 11 de Gener de 2017.
