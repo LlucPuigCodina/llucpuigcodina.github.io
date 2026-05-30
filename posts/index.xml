@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Lluc Puig Codina</title>
+    <link>https://llucpuigcodina.github.io/posts/</link>
+    <description>Recent content in Posts on Lluc Puig Codina</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 13 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://llucpuigcodina.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Markov Chains and Smoothing</title>
+      <link>https://llucpuigcodina.github.io/posts/markov_chain_smoothing/</link>
+      <pubDate>Sat, 13 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/markov_chain_smoothing/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;Let &lt;span class=&#34;math inline&#34;&gt;\(\left\{ X_t \right\}_{t \geq 1}\)&lt;/span&gt; be a &lt;em&gt;Markov chain&lt;/em&gt;. Use notation &lt;span class=&#34;math inline&#34;&gt;\(x_{i:j} = \left(x_i, x_{i+1}, \dots, x_j \right)\)&lt;/span&gt;. By the &lt;em&gt;Markov property&lt;/em&gt;,&lt;/p&gt;&#xD;&#xA;&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[&#xD;&#xA;\begin{align*}&#xD;&#xA;\pi\left(x_{1:T}\right) &amp;amp;= \pi\left(x_{k+1:T} | x_{1:k+1} \right)\pi\left(x_{k+1}|x_{1:k} \right)\pi\left(x_k | x_{1:k-1} \right)\pi\left(x_{1:k-1}\right)\\&#xD;&#xA;&amp;amp;= \pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)&#xD;&#xA;\end{align*}&#xD;&#xA;\]&lt;/span&gt;&lt;/p&gt;&#xD;&#xA;&lt;p&gt;Then,&lt;/p&gt;&#xD;&#xA;&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[&#xD;&#xA;\begin{align*}&#xD;&#xA;\pi\left(x_k | x_{1:k-1}, x_{k+1:T}\right) &amp;amp;= \frac{\pi\left(x_{1:T}\right)}{\pi\left(x_{1:k-1}, x_{k+1:T} \right)}\\&#xD;&#xA;&amp;amp;= \frac{\pi\left(x_{1:T}\right)}{\int\pi\left(x_{1:T}\right) dx_k}\\&#xD;&#xA;&amp;amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right)}{\int \pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)\pi\left(x_{1:k-1}\right) dx_k} \\&#xD;&#xA;&amp;amp;= \frac{\pi\left(x_{k+1:T} | x_{k+1} \right)\pi\left(x_{1:k-1}\right)}{\pi\left(x_{k+1:T} | x_{k+1} \right)  \pi\left(x_{1:k-1}\right) } \times \frac{\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)}{\int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k}\\&#xD;&#xA;&amp;amp;= \frac{\pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right)}{\int \pi\left(x_{k+1}|x_{k} \right)\pi\left(x_k | x_{k-1} \right) dx_k} \\&#xD;&#xA;&amp;amp;= \frac{\pi\left(x_{k+1}, x_k | x_{k-1} \right)}{\pi\left( x_{k+1} | x_{k-1} \right)}\\&#xD;&#xA;&amp;amp;= \pi\left( x_k | x_{k-1}, x_{k+1} \right)\\&#xD;&#xA;\end{align*}&#xD;&#xA;\]&lt;/span&gt;&#xD;&#xA;Given all past and future, all information about &lt;span class=&#34;math inline&#34;&gt;\(x_k\)&lt;/span&gt; is contained in itâ€™s nearest neighbors &lt;span class=&#34;math inline&#34;&gt;\(x_{k-1}\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(x_{k+1}\)&lt;/span&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>On the limiting behaviour of the Uhlig 1997 Stochastic Volatility model</title>
+      <link>https://llucpuigcodina.github.io/posts/uhligstochvol/</link>
+      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/uhligstochvol/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;Uhlig (1997) proposed a VAR with stochastic volatility where precision, the inverse of variance, is given by a multiplicative process with beta innovations. The model lends itself to a high level of tractability since exact updating formulas are obtained. Lately Iâ€™ve been playing around with this model and found out some interesting aspects.&lt;/p&gt;&#xD;&#xA;&lt;p&gt;For the simple scalar case the model is as follows:&lt;/p&gt;&#xD;&#xA;&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[&#xD;&#xA;y_t = \beta y_{t-1} + h_t^{-1/2}\epsilon_t, \ \ \epsilon_t \overset{iid}{\sim}\mathscr{N}(0,1) \\&#xD;&#xA;h_{t+1} = h_t \mathscr{V}_t/\lambda, \ \ \mathscr{V}_t \overset{iid}{\sim}\mathscr{B}(\nu/2, 1/2)&#xD;&#xA;\]&lt;/span&gt;&#xD;&#xA;where &lt;span class=&#34;math inline&#34;&gt;\(h_1 \sim \mathscr{G}(s_0, \nu)\)&lt;/span&gt;. The multiplicative process for precision can be analyzed in the light of results by Nelson (1990). The density of the beta innovation is given by:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Drawing with Restrictions in MCMC</title>
+      <link>https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/</link>
+      <pubDate>Tue, 18 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/mhrestrictiongeweke/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;It is often the case that, when simulating from posterior distributions using MCMC, researchers wish to impose restrictions on some parameters.&lt;/p&gt;&#xD;&#xA;&lt;p&gt;Two illustrative cases are discussed in Gewekeâ€™s &lt;em&gt;Contemporary Bayesian Econometrics and Statistics&lt;/em&gt; Example 4.2.2 and 4.3.2 . The following description of the setup (and notation) is taken almost verbatim from Geweke. These examples consider a normal linear regression model with Gaussian disturbances in which the prior of &lt;span class=&#34;math inline&#34;&gt;\(\boldsymbol{\beta}\)&lt;/span&gt; (the regression coefficient) given &lt;span class=&#34;math inline&#34;&gt;\(h\)&lt;/span&gt; (precision) is &lt;span class=&#34;math inline&#34;&gt;\(\mathscr{N}(\underline{\boldsymbol{\beta}}, \underline{\textbf{H}})\)&lt;/span&gt; truncated to a set &lt;span class=&#34;math inline&#34;&gt;\(S\subseteq \mathbb{R}^k\)&lt;/span&gt;. A typical acceptance sampling algorithm used once we enter the stage of drawing &lt;span class=&#34;math inline&#34;&gt;\(\boldsymbol{\beta}^{(m)}\)&lt;/span&gt; is:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>X &gt; MAX for independent but not identically distributed betas</title>
+      <link>https://llucpuigcodina.github.io/posts/abtest_general_formula/</link>
+      <pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/abtest_general_formula/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;In this post I provide a general formula for the probability that the realization of a beta random variable is larger than the realizations from a sequence of beta random variables, all of them being independent. Assume &lt;span class=&#34;math inline&#34;&gt;\(p_j \sim \mathscr{B}(\alpha_j, \beta_j)\)&lt;/span&gt;. We have J+1 independent but not identically distributed beta random variables, indexed from 0 to J, and we are interested in calculating &lt;span class=&#34;math inline&#34;&gt;\(\mathbb{P}(p_0 &amp;gt; max\{p_1,\dots,p_J\})\)&lt;/span&gt;. &lt;span class=&#34;math inline&#34;&gt;\(\alpha_j\)&lt;/span&gt;â€™s and &lt;span class=&#34;math inline&#34;&gt;\(\beta_j\)&lt;/span&gt;â€™s are restricted to the positive integers. A general recursive formula in the style of the ones provided by &lt;a href=&#34;https://www.evanmiller.org/bayesian-ab-testing.html#binary_abc&#34;&gt;Evan Miller&lt;/a&gt; is:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Growth-at-Risk IMF Tool</title>
+      <link>https://llucpuigcodina.github.io/posts/growth_at_risk/</link>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/growth_at_risk/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;The International Monetary Fund (IMF) has been using &lt;em&gt;Growth-at-Risk&lt;/em&gt;, a macro-econometric tool developed by them to assess risks to economic growth, in several article IV country reports (Albania, Portugal and Singapore 2018), Chapter 2 of the IMF Global Financial Conditions Report since October 2017 and so on. The tool is built taking the methodology developed in the AER April 2019 paper &lt;em&gt;Vulnerable Growth&lt;/em&gt;.&lt;/p&gt;&#xD;&#xA;&lt;center&gt;&#xD;&#xA;&lt;figure&gt;&#xD;&#xA;&lt;img src=&#34;images/posts/imf_logo.png&#34; width=&#34;200&#34; height=&#34;200&#34;&gt;&#xD;&#xA;&lt;figcaption&gt;&#xD;&#xA;IMF logo. No, Iâ€™m not the IMF.&#xD;&#xA;&lt;/figcaption&gt;&#xD;&#xA;&lt;/figure&gt;&#xD;&#xA;&lt;/center&gt;&#xD;&#xA;&lt;p&gt;I have several doubts about the statistical procedures used and the interpretation of the results in the original AER paper but I want to keep the post short. This tool has been assessed by the paper &lt;a href=&#34;https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3461214&#34;&gt;â€œBacktesting Global Growth-at-Riskâ€&lt;/a&gt;, where they show that the Growth-at-Risk tool procedure consistently fails to beat a simple GARCH model.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Tests for correct specification of conditional predictive densities</title>
+      <link>https://llucpuigcodina.github.io/posts/rossi_cond_density_tests/</link>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/rossi_cond_density_tests/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;I have implemented the statistical tests of Rossi and Sekhposyan (2019) in R. &lt;a href=&#34;https://github.com/LlucPuigCodina/tests-of-correct-specification-of-conditional-densities&#34;&gt;You can find the codes in the following Github repo&lt;/a&gt;. Two tests, a Kolmogorov-Smirnov test and an CrÃ mer-von Mises test, are implemented to assess the correct specification of rolling window conditional distribution out-of-sample forecasts, one and multiple steps ahead.&lt;/p&gt;&#xD;&#xA;&lt;p&gt;Thew hole idea of the test is the following: let &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; be a random variable with cdf &lt;span class=&#34;math inline&#34;&gt;\(F_X\)&lt;/span&gt; (with well defined &lt;span class=&#34;math inline&#34;&gt;\(F_X^{-1}\)&lt;/span&gt;). If we define a new variable &lt;span class=&#34;math inline&#34;&gt;\(Y = F_X(X)\)&lt;/span&gt;, then &lt;span class=&#34;math inline&#34;&gt;\(F_Y(y) = \mathbf{P}(Y \leq y) = \mathbf{P}(F_X(X) \leq y) = \mathbf{P}(X \leq F_X^{-1}(y)) = F_X(F_X^{-1}(y)) = y\)&lt;/span&gt;. The random variable that has &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; as CDF is a uniform random variable. This is known as the &lt;a href=&#34;https://web.archive.org/save/https://en.wikipedia.org/wiki/Probability_integral_transform&#34;&gt;probability inverse transform&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Acerbi &amp; Szekely Unconditional Expected Shortfall Test</title>
+      <link>https://llucpuigcodina.github.io/posts/expectedshortfalltest/</link>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/expectedshortfalltest/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;Python&lt;/strong&gt; implementation of the Direct Expected Shortfall Test of Acerbi and Szekely (2014).I donâ€™t know of any implementation of such test in Python. The test has been &lt;a href=&#34;https://web.archive.org/web/20200619205610/https://www.mathworks.com/help/risk/examples/expected-shortfall-estimation-and-backtesting.html&#34;&gt;implemented in MatLab&lt;/a&gt;. The backtesting of Expected Shortfall has long been a difficult task due to the lack of elicitibility. The test Iâ€™ve implemented is the second test of Acerbi and Szekely and itâ€™s full details are in the reference.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Puzzles and the Behavioural New Keynesian Model</title>
+      <link>https://llucpuigcodina.github.io/posts/determinacy_gabaix_new_keynesian_model/</link>
+      <pubDate>Thu, 05 Oct 2017 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/determinacy_gabaix_new_keynesian_model/</guid>
+      <description>&lt;p&gt;Herein I conduct similar policy experiments to those of Carlstrom et al.Â (2012) with a Behavioural New Keynesian (BNK) model, instead of the standard New Keynesian model (only) or a sticky information model. The BNK model does a good job of solving previous issues with the standard model (as already noted by Gabaix).&lt;/p&gt;&#xD;&#xA;&lt;p&gt;All of this work is already, explicitly or implicitly, in the cited articles, so I wouldnâ€™t claim to show anything new. Nontheless, replication is a good way to learn.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>La universitat gratuÃ¯ta es ajudar els rics</title>
+      <link>https://llucpuigcodina.github.io/posts/universitat_gratuita_2/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>https://llucpuigcodina.github.io/posts/universitat_gratuita_2/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;body {&#xD;&#xA;text-align: justify}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;p&gt;Recentment sâ€™ha publicat un article escrit per dos companys i jo mateix al diari &lt;em&gt;Ara&lt;/em&gt;. El podeu llegir &lt;a href=&#34;https://web.archive.org/web/20170110223706/http://www.ara.cat/opinio/Lluc-Puig-Marti-Jimenez-Roger-Medina-universitat-gratuita-ajuda-rics_0_1721827808.html&#34;&gt;aquÃ­&lt;/a&gt;.&lt;/p&gt;&#xD;&#xA;&lt;p&gt;TambÃ© va aparÃ¨ixer a la versiÃ³ impresa del 11 de Gener de 2017.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
