@@ -1,0 +1,227 @@
+﻿---
+title: "Growth-at-Risk IMF Tool"
+date: '2020-06-21'
+categories:
+- Econometrics
+- Macroeconomics
+- Public Policy
+- Risk Management
+- Research
+- English
+---
+
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<p>The International Monetary Fund (IMF) has been using <em>Growth-at-Risk</em>, a macro-econometric tool developed by them to assess risks to economic growth, in several article IV country reports (Albania, Portugal and Singapore 2018), Chapter 2 of the IMF Global Financial Conditions Report since October 2017 and so on. The tool is built taking the methodology developed in the AER April 2019 paper <em>Vulnerable Growth</em>.</p>
+<center>
+<figure>
+<img src="images/posts/imf_logo.png" width="200" height="200">
+<figcaption>
+IMF logo. No, Iâ€™m not the IMF.
+</figcaption>
+</figure>
+</center>
+<p>I have several doubts about the statistical procedures used and the interpretation of the results in the original AER paper but I want to keep the post short. This tool has been assessed by the paper <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3461214">â€œBacktesting Global Growth-at-Riskâ€</a>, where they show that the Growth-at-Risk tool procedure consistently fails to beat a simple GARCH model.</p>
+<p>Two of the crucial steps described in the AER paper are the following:</p>
+<ol style="list-style-type: decimal">
+<li>Obtain conditional quantile forecasts of GDP growth using quantile regression:</li>
+</ol>
+<p><span class="math display">\[
+\hat{Q}_{y_{t+h}|x_t}(\tau|x_t) = x_t \hat{\beta}_\tau
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Fit a skew t-distribution to the four fitted values of the quantile regression by minimizing the squared distance between the skewed student t-distribution quantiles and the regression quantiles.</li>
+</ol>
+<p><span class="math display">\[
+\{\hat{\mu}_{t+h}, \hat{\sigma}_{t+h}, \hat{\alpha}_{t+h}, \hat{\nu}_{t+h} \} = \underset{\mu, \sigma, \alpha, \nu}{argmin} \sum_{\tau}\left( \hat{Q}_{y_{t+h}|x_t}(\tau|x_t) - F^{-1}(\tau; \mu, \sigma, \alpha, \nu) \right)^2
+\]</span></p>
+<p>where <span class="math inline">\(F(Â·)\)</span> is the CDF of a skewed t-distribution.</p>
+<p>Now, if we go the technical appendix of the <a href="https://github.com/IMFGAR/GaR/blob/master/Documentation/GaR%20-%20Technical%20Appendix.docx">Growth-at-Risk IMF tool Github repository</a>, in footnote 11 (section about unconstrained optimization) one can find the following:</p>
+<blockquote>
+<p>To avoid that the t-skew parametrization converges towards a Gaussian (infinite degrees of freedom), the tool anchors the degrees of freedom at 2.</p>
+</blockquote>
+<p>Yet, there seems to be no reason why the degrees of freedom should be fixed at 2, and no reason to prevent the distribution to converge towards a Gaussian if the data indicates so. How does this affect the distributions estimated? Is it a big change? This are the questions Iâ€™m now going to answer. To do that I will replicate Figure 8. Probability Densities (one-quarter-ahead GDP and NFCI distributions only) of the AER paper first with completely unconstrained optimization, like the AER paper, and then fixing the degrees of freedom to 2.</p>
+<center>
+<table style="text-align:center">
+<caption>
+<strong>Unconstrained Optimization</strong>
+</caption>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+location
+</td>
+<td>
+scale
+</td>
+<td>
+skewness
+</td>
+<td>
+freedom
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Q2.2006
+</td>
+<td>
+1.921
+</td>
+<td>
+2.707
+</td>
+<td>
+1.802
+</td>
+<td>
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Q4.2008
+</td>
+<td>
+2.117
+</td>
+<td>
+2.614
+</td>
+<td>
+-0.860
+</td>
+<td>
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Q4.2014
+</td>
+<td>
+2.357
+</td>
+<td>
+2.506
+</td>
+<td>
+2.030
+</td>
+<td>
+30
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Constrained Optimization with degrees of freedom = 2</strong>
+</caption>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+location
+</td>
+<td>
+scale
+</td>
+<td>
+skewness
+</td>
+<td>
+freedom
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Q2.2006
+</td>
+<td>
+3.390
+</td>
+<td>
+1.188
+</td>
+<td>
+0.325
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Q4.2008
+</td>
+<td>
+1.467
+</td>
+<td>
+1.975
+</td>
+<td>
+-0.521
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Q4.2014
+</td>
+<td>
+3.713
+</td>
+<td>
+1.078
+</td>
+<td>
+0.377
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+</center>
+<p><img src="/posts/growth_at_risk_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As we can see, all constrained distributions put a higher weight to values around the center of the distribution compared to unconstrained distributions. This is even limited by the fact that in the AER paper degrees of freedom are not allowed to be larger than 30. Now that we have analyzed the changes, why did the authors of the tool make this conscious choice? I believe that as the original MatLab routine incorporated a grid search for the degrees of freedom that took quite some time, and that Python is not a very fast language, the authors opted to drop this computationally costly grid search and set the degrees of freedom to 2. Python is intended to be the back-end for a Growth-at-Risk Excel plugin.</p>
+<hr />
+<p>Note: Even if the graphs in blue (unconstrained) donâ€™t seem, visually, to exactly match the AER Figure 8, the printed parameters of the distributions are identical to those found in the replication codes.</p>
+<hr />
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Adrian, T., Boyarchenko, N., &amp; Giannone, D. (2019). Vulnerable growth. <em>American Economic Review</em>, 109(4), 1263-89.</p>
+<p>Brownlees, Christian T. and Souza, Andre B.M., Backtesting Global Growth-at-Risk (September 29, 2019). Available at SSRN: <a href="https://ssrn.com/abstract=3461214">https://ssrn.com/abstract=3461214</a> or <a href="http://dx.doi.org/10.2139/ssrn.3461214">http://dx.doi.org/10.2139/ssrn.3461214</a></p>
+</div>

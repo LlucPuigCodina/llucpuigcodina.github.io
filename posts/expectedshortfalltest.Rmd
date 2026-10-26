@@ -1,0 +1,264 @@
+﻿---
+title: "Acerbi & Szekely Unconditional Expected Shortfall Test"
+date: '2020-06-19'
+categories: ['Econometrics', 'Risk Management', 'Research', 'English']
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+**Python** implementation of the Direct Expected Shortfall Test of Acerbi and Szekely (2014).I don't know of any implementation of such test in Python. The test has been [implemented in MatLab](https://web.archive.org/web/20200619205610/https://www.mathworks.com/help/risk/examples/expected-shortfall-estimation-and-backtesting.html). The backtesting of Expected Shortfall has long been a difficult task due to the lack of elicitibility. The test I've implemented is the second test of Acerbi and Szekely and it's full details are in the reference.
+
+### Input
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(reticulate)
+```
+
+
+```{python echo=FALSE, error=TRUE}
+import os
+os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = 'C:/Users/Lluc/AppData/Local/R-MINI~1/envs/R-RETI~1/Library/plugins/platforms'
+
+import numpy as np
+import scipy.stats as stats
+
+class EStest:
+    """
+    Implements the direct/unconditional Expected Shortfall test of Acerbi and 
+    Szekely (2014). This test does not require the assumption of independence 
+    for the realizations of the stochastic process describing portfolio returns
+    
+    Acerbi, Carlo, and Balazs Szekely. "Back-testing expected shortfall." 
+    Risk 27.11 (2014): 76-81.
+    """
+    
+    def __init__(self, X_obs, X, VaRLevel, VaR, ES, nSim, alpha = 0.05, 
+                 print_results = True):
+        """        
+        X_obs (np.array): Numpy array of size 1xT containing the actual 
+                          realization of the portfolio return.
+                          
+        X (function): Function that simulates (outputs) a realization of the 
+                      portfolio return under H0: 
+                      X^s = (X_1^s, X_2^s,..., X_T^s), with X_t^s ~ P_t for all
+                      t = 1 to T.
+                      Output should be a numpy array of 1xT.
+                      
+        VaRLevel (float): Number describing the level of the VaR, say 0.05 for 
+                          95% or 0.01 for 99%.
+        
+        VaR (np.array): Numpy array of size 1xT containing the projected 
+                        Value-at-Risk estimates for t = 1 to T at VarLevel.
+                        VaR must not be reported in its positive values, but
+                        rather in its actual values, usually negative.
+                        
+        ES (np.array): Numpy array of size 1xT containing the projected
+                       Expected Shortfall estimates for t = 1 to T at VaRLevel.
+                       ES must not be reported in its positive values, but 
+                       rather in its actual values, usually negative.
+
+        nSim (int): Number of Monte Carlo simulations, scenarios, to obtain the
+                    distribution of the statistic under the null hypothesis of 
+                    P_t^[VaRLevel] = F_t^[VaRLevel].
+                    
+        alpha (float): Number in [0, 1] denoting the Type I error, the 
+                       significance level threshold used to compute the 
+                       critical value. Default set at 5%
+                       
+        print_results (boolean): Boolean for whether results should be printed. 
+        """
+        self.X_obs = X_obs
+        self.T = X_obs.size
+        self.X = X
+        self.VaR = -VaR
+        self.ES = -ES
+        self.VaRLevel = VaRLevel
+        self.nSim = nSim      
+        self.alpha = alpha
+        
+        self.simulation()
+        
+        if print_results == True:
+            print('----------------------------------------------------------------')
+            print('   Direct/Unconditional Expected Shortfall Test by Simulation   ')
+            print('----------------------------------------------------------------')
+            print('Number of observations: ' + str(self.T))
+            print('Number of VaR breaches: ' + str(self.VaR_breaches))
+            print('Expected number of VaR breaches: ' + str(self.T*self.VaRLevel))
+            print('ES Statistic: ' + str(self.Z_obs))
+            print('Expected ES Statistic: ' + str(0))
+            print('Critical Value at Î± = ' + str(self.alpha) + ': ' + str(self.critical_value))
+            print('p-value: ' + str(self.p_value))
+            print('Number of Monte Carlo simulations: ' + str(self.nSim))
+            print('----------------------------------------------------------------')
+        
+        
+    def statistic(self, X, I):
+        """
+        The statistic Z is defined as:
+            Z = (1/(T*VaRLevel)) * \sum_{t=1}^T X_t*I_t/(ES_{VarLevel,t});    
+            where I_t = 1(X_t + VaR_{VaRLevel,t}<0) is an indicator function 
+            for whether VaR has been breached.     
+        """
+        return sum((X*I)/self.ES)/(self.VaRLevel*self.T) + 1
+        
+        
+    def simulation(self):
+        """
+        Obtains the critical value and the p-value through Monte Carlo
+        simulation. The p-value is defined as the fraction of scenarios for
+        which the simulated test statistic is smaller than the test statistic 
+        evaluated at the true portfolio return realizations:
+            
+            p-value = (1/M) * \sum_{s=1}^M 1(Z^s < Z^realized)
+            
+        The critical value is defined as the value of the statistic such that
+        the p-value would be equal to alpha.
+        """
+        I_obs = (self.X_obs + self.VaR < 0) 
+        self.VaR_breaches = I_obs.sum()
+        self.Z_obs = self.statistic(self.X_obs, I_obs)       
+        
+        statistics = []
+        statistic_breaches = []
+
+        for i in range(self.nSim):
+            X_i = self.X()
+            I_i = (X_i + self.VaR < 0) 
+            Z_i = self.statistic(X_i, I_i)
+            statistics.append(Z_i)
+            statistic_breach = Z_i < self.Z_obs
+            statistic_breaches.append(statistic_breach)
+        
+        self.critical_value = np.quantile(statistics, self.alpha)
+        self.p_value = np.mean(statistic_breaches)
+
+print(EStest.__init__.__doc__)
+```
+
+### Examples
+
+We run the test under two different scenarios. In the first scenario the portfolio returns are generated from a normal distribution mixture such that there is a bump in the left tail compared to a normal distribution. In the second case the portfolio returns are generated form a normal.
+
+Then returns are always assumed to follow a normal distribution with the sample mean and variance. We can observe that the Value at Risk and Expected Shortfall estimates at 95% are strongly rejected in the first case but not in the second case.
+
+The first case is:
+
+$$ 
+TDGP: r_t \sim \ \ \text{i.i.d} \ \ \mathbb{1}_{\phi_t = 0} \mathcal{N}(\mu_{standard}, \sigma_{stress}) + \mathbb{1}_{\phi_t = 1} \mathcal{N}(\mu_{stress}, \sigma_{stress}) 
+$$ 
+where $\phi_t \sim$ i.i.d $Bernoulli(p)$.
+
+$$ 
+Model: r_t \sim \ \ \text{i.i.d} \ \ \mathcal{N}(\hat{\mu}, \hat{\sigma}) 
+$$
+
+```{python error=TRUE, include=FALSE}
+import numpy as np
+import scipy.stats as stats
+np.random.seed(0) #Fix the seed for reproducible results
+
+T = 3000 #Sample size of three thousand
+r = 0.05 #VaRLevel
+p_stress = 0.03 #Stress scenario probability
+standard_mu  = 0.03 #mean for standard times
+standard_sigma = 0.1 #standard deviation for standard times
+stress_mu  = -0.32 #mean for stress times
+stress_sigma = 0.03 #standard deviation for stress times
+
+u = np.random.binomial(size=T, n=1, p= p_stress) #Stress indicator
+standard = np.random.normal(loc = standard_mu, scale = standard_sigma, size = T) #PnL under standard times
+stress =  np.random.normal(loc = stress_mu, scale = stress_sigma, size = T) #PnL under stress times
+x = (np.ones(T)-u)*standard + u*stress #PnL realization
+
+#Simulation of returns from the assumed normal distribution
+sample_mu = np.mean(x)
+sample_sigma = np.std(x)
+def sim_returns(): return np.random.normal(loc = sample_mu, scale = sample_sigma, size = T) 
+
+#Value-at-Risk estimates
+k = np.repeat(stats.norm.ppf(r, loc = sample_mu, scale = sample_sigma), T)
+
+#Expected Shortfall estimates
+z = stats.norm.ppf(r, loc = sample_mu, scale = sample_sigma) #Estimated VaR
+z = (z-sample_mu)/sample_sigma #Normalized VaR
+z = sample_mu - sample_sigma*(stats.norm.pdf(z)/stats.norm.cdf(z)) #Estimated ES
+z = np.repeat(z ,T) #ES projections
+#The procedure to compute the ES under a normal distribution can be obtained
+#here: https://stats.stackexchange.com/questions/166273/expected-value-of-x-in-a-normal-distribution-given-that-it-is-below-a-certain-v
+```
+
+```{python echo=FALSE, fig.align = 'center'}
+import scipy.stats as scs
+from scipy.stats import norm
+import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+
+n, bins, patches = plt.hist(x, bins=80, density = True, color='#0504aa',
+                            alpha=0.7, rwidth=0.85)
+
+y = scs.norm.pdf(bins, sample_mu, sample_sigma)
+l = plt.plot(bins, y, 'r--', linewidth=2)
+
+plt.grid(axis='y', alpha=0.75)
+plt.title('Realized PnL')
+plt.show()
+```
+
+```{python echo=FALSE, error=TRUE}
+test1 = EStest(X_obs = x, X = sim_returns, VaRLevel = 0.05, VaR = k, ES = z, nSim = 10000)
+```
+
+The second case is:
+
+$$ 
+TDGP: r_t \sim \ \ \text{i.i.d} \ \ \mathcal{N}(\mu_{standard}, \sigma_{standard}) 
+$$
+
+$$ 
+Model: r_t \sim \ \ \text{i.i.d} \ \ \mathcal{N}(\hat{\mu}, \hat{\sigma}) 
+$$
+
+```{python error=TRUE, include=FALSE}
+#Simulation of returns from the assumed normal distribution
+sample_mu = np.mean(standard)
+sample_sigma = np.std(standard)
+def sim_returns(): return np.random.normal(loc = sample_mu, scale = sample_sigma, size = T) 
+#Value-at-Risk estimates
+k = np.repeat(stats.norm.ppf(0.05, loc = sample_mu, scale = sample_sigma), T)
+
+#Expected Shortfall estimates
+z = stats.norm.ppf(0.05, loc = sample_mu, scale = sample_sigma) #Estimated VaR
+z = (z-sample_mu)/sample_sigma #Normalized VaR
+z = sample_mu - sample_sigma*(stats.norm.pdf(z)/stats.norm.cdf(z)) #Estimated ES
+z = np.repeat(z ,T) #ES projections
+```
+
+```{python echo=FALSE, fig.align = 'center'}
+from scipy.stats import norm
+import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+import scipy.stats as scs
+
+
+n, bins, patches = plt.hist(standard, bins=80, density = True, color='#0504aa',
+                            alpha=0.7, rwidth=0.85)
+
+y = scs.norm.pdf(bins, sample_mu, sample_sigma)
+l = plt.plot(bins, y, 'r--', linewidth=2)
+
+plt.grid(axis='y', alpha=0.75)
+plt.title('Realized PnL')
+plt.show()
+```
+
+```{python echo=FALSE, error=TRUE}
+test2 = EStest(X_obs = standard, X = sim_returns, VaRLevel = 0.05, VaR = k, ES = z, nSim = 10000)
+```
+
+### References
+
+Acerbi, Carlo, and Balazs Szekely. "[Back-testing expected shortfall.](https://web.archive.org/web/20200619210729/https://www.msci.com/documents/10199/22aa9922-f874-4060-b77a-0f0e267a489b)" *Risk* 27.11 (2014): 76-81.

@@ -1,0 +1,83 @@
+﻿---
+title: 'Puzzles and the Behavioural New Keynesian Model'
+date: "2017-10-05"
+categories: ['Macroeconomics', 'Research', 'English']
+---
+
+Herein I conduct similar policy experiments to those of Carlstrom et al. (2012) with a Behavioural New Keynesian (BNK) model, instead of the standard New Keynesian model (only) or a sticky information model. The BNK model does a good job of solving previous issues with the standard model (as already noted by Gabaix).
+
+All of this work is already, explicitly or implicitly, in the cited articles, so I wouldn't claim to show anything new. Nontheless, replication is a good way to learn.
+
+
+## The Model
+
+We will take up the BNK model of Gabaix (2016):
+
+$$
+x_t = M E_t\{ x_{t+1} \} - \sigma (i_t - E_t\{ \pi_{t+1} \} - r_t^n) \hspace{0.3cm} [1]
+$$
+
+
+$$
+\pi_t = \beta M^f E_t\{ \pi_{t+1} \} + \kappa x_t \hspace{0.3cm} [2]
+$$
+
+## Forward Guidance
+
+Following Carlstrom et al. (2012) and (2015), assume that at $t > N+T$ the monetary authority follows an interest rate rule such as:
+
+$$
+i_t = r_t^n + \phi_\pi \pi_t \hspace{0.3cm} [3]
+$$
+
+where the Taylor principle holds ($\phi_\pi > 1$), so that the system characterized by $[1]-[2]-[3]$ has the unique solution $x_t = \pi_t = 0 \ \forall t > N+T$; under perfect foresight ($E_t( g_{t+k}) - g_{t+k} = 0 \ \forall k \in \mathbb{Z}$ where $g$ represents any variable). Now, consider a shock to the natural rate of interest that triggers $i_t = 0$ for $t = 0, 1, 2,..., N$; where the ZLB binds. The shock occurs at $t=0$ where $z_t \equiv i_t - r_t^n = -r_t^n > 0$ for $t = 0, 1, 2,..., N$. This is followed by a stimulative rate peg $z_t = i^* \leq 0$ for $t = N+1,N+2,..., N+T$. We can rewrite the system characterized by $[1]$ and $[2]$ and $z_t$; and use the unique solution for $t>N+T$ as a terminal condition to ensure equilibrium uniqueness along the entire path while we run time backwards from $T+1$. 
+
+During this period, inflation dynamics are governed by:
+
+$$
+\textbf{s}_{N+T-k} = \textbf{A}_1 \textbf{s}_{N+T-k+1} - (\kappa \sigma, 0)^T z_{N+T-k} \hspace{0.3cm} [4]
+$$
+
+for $k = 1, 2,...$
+
+where: 
+
+$$
+\textbf{s}_{N+T-k} = ( \pi_{N+T-k}, \pi_{N+T-k+1} )^{T}
+$$
+
+and
+
+$$
+\textbf{A}_1 = \begin{bmatrix} 
+M + \kappa\sigma + \beta M^f  & -M\beta M^f \\ 
+1 & 0  
+\end{bmatrix}
+$$
+
+The forward guidance puzzle arrises from the explosive behaviour of the system described in $[4]$. The system is stable only if $\textbf{A}_1$ has both eigenvalues inside the unit circle. This is the case when the strong rationality condition holds: 
+
+$$
+(1-\beta M^f)(1-M) < \kappa\sigma
+$$
+
+We can also see the behaviour of the system during a zero lower bound (ZLB) episode, where $\kappa = \sigma = 0.5$, $\beta = 0.95$, $M^f = 1$ (firms are rational) and the real rate is $-0.01$, $4\%$ anually, for 8 periods. For a high enough consumer myopia the system seems to be stable. The results are highly sensitive to the values of $\kappa \sigma$ chosen, as implied by the previous condition.
+
+
+<center><img src="images/posts/ZLBepisode.png"></center>
+
+
+We can now conduct an  experiment similar to that of Calstrom et al. (2012); where we mantain $z_t$ a slightly negative value to simulate a stimulative peg at 0 with an assumed nominal steady state interest rate of $4\%$, so: $i^* = -0.01$ for 8 periods. We can now plot inflation at $t=0$ as a function of $T$.
+
+
+<center><img src="images/posts/ForwardGuidance.png"></center> 
+
+
+This last figure is "my" equivalent of Figure 1 in Calstrom et al. (2012) [note the different parameter values for $\kappa$ and $\sigma$ lead to such high values, also my $\sigma$ denotes a different constant than Calstrom et al.'s $\sigma$]. As we can see, little or no bias (black and red) get us an explosive behaviour, while a strong enough bias (blue and green) deliver stable dynamics.  
+
+
+## References
+
+Carlstrom, Charles T., Timothy S. Fuerst, and Matthias Paustian. "Inflation and output in New Keynesian models with a transient interest rate peg." (2012).
+
+Gabaix, Xavier. "A Behavioral New Keynesian Model." (2017).
